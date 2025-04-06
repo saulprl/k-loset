@@ -14,7 +14,6 @@ export async function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 flex flex-col bg-white">
-      {/* <span className="absolute right-0 -bottom-0 left-0 h-2 bg-stone-400"></span> */}
       <div className="relative flex w-full items-center justify-between border-b-8 border-b-stone-700 p-4 lg:px-6">
         <div className="block flex-none md:hidden">
           <Suspense fallback={null}>
