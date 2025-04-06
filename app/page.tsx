@@ -1,18 +1,28 @@
-import { Carousel } from 'components/carousel';
-import { ThreeItemGrid } from 'components/grid/three-items';
-import Footer from 'components/layout/footer';
+import { Carousel } from "components/carousel";
+import { ThreeItemGrid } from "components/grid/three-items";
+import Footer from "components/layout/footer";
+import Image from "next/image";
 
 export const metadata = {
   description:
-    'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+    "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
   openGraph: {
-    type: 'website'
-  }
+    type: "website",
+  },
 };
 
 export default function HomePage() {
   return (
     <>
+      <div className="relative overflow-hidden p-4 md:h-[80svh]">
+        <Image
+          src="/img/home-hero.jpg"
+          alt="K-loset cover image"
+          height={750}
+          width={1600}
+          className="size-full rounded-lg"
+        />
+      </div>
       <ThreeItemGrid />
       <Carousel />
       <Footer />

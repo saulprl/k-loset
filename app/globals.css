@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -23,7 +23,7 @@
 }
 
 @supports (font: -apple-system-body) and (-webkit-appearance: none) {
-  img[loading='lazy'] {
+  img[loading="lazy"] {
     clip-path: inset(0.6px);
   }
 }
@@ -31,7 +31,7 @@
 a,
 input,
 button {
-  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
+  @apply focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 focus-visible:outline-hidden dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
 }
 
 :root {
@@ -67,6 +67,15 @@ button {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  --lavender-blush: #f5e6e8;
+  --thistle: #d5c6e0;
+  --rose-quartz: #aaa1c8;
+  --mountbatten-pink: #967aa1;
+  --space-cadet: #192a51;
+  --dark-space-cadet: #2b2d42;
+  --amethyst: #a663cc;
+  --thistle-rose: #e8cee4;
 }
 
 .dark {
@@ -139,6 +148,15 @@ button {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-lavender-blush: var(--lavender-blush);
+  --color-thistle: var(--thistle);
+  --color-rose-quartz: var(--rose-quartz);
+  --color-mountbatten-pink: var(--mountbatten-pink);
+  --color-space-cadet: var(--space-cadet);
+  --color-dark-space-cadet: var(--dark-space-cadet);
+  --color-amethyst: var(--amethyst);
+  --color-thistle-rose: var(--thistle-rose);
 }
 
 @layer base {
