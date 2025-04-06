@@ -68,14 +68,14 @@ button {
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --lavender-blush: #f5e6e8;
-  --thistle: #d5c6e0;
-  --rose-quartz: #aaa1c8;
-  --mountbatten-pink: #967aa1;
-  --space-cadet: #192a51;
-  --dark-space-cadet: #2b2d42;
-  --amethyst: #a663cc;
-  --thistle-rose: #e8cee4;
+  --lavender-blush: hsl(352 43% 93%);
+  --thistle: hsl(275 30% 83%);
+  --rose-quartz: hsl(254 26% 71%);
+  --mountbatten-pink: hsl(283 17% 55%);
+  --space-cadet: hsl(222 53% 21%);
+  --dark-space-cadet: hsl(235 21% 21%);
+  --amethyst: hsl(278 51% 59%);
+  --thistle-rose: hsl(309 36% 86%);
 }
 
 .dark {
