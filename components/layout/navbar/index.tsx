@@ -24,14 +24,14 @@ export async function Navbar() {
           <Search />
         </Suspense>
       </div>
-      <div className="absolute top-1/2 left-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center md:w-1/3">
+      <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center md:w-1/3">
         <Link
           href="/"
           prefetch={true}
-          className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+          className="flex items-center justify-center gap-2 md:w-auto"
         >
           <LogoSquare />
-          <div className="ml-2 flex-none text-sm font-medium uppercase">
+          <div className="flex-none text-sm font-medium uppercase">
             {SITE_NAME}
           </div>
         </Link>
