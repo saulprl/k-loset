@@ -157,6 +157,9 @@ button {
   --color-dark-space-cadet: var(--dark-space-cadet);
   --color-amethyst: var(--amethyst);
   --color-thistle-rose: var(--thistle-rose);
+
+  --font-sans: var(--font-jost);
+  --font-serif: var(--font-libre-caslon);
 }
 
 @layer base {
