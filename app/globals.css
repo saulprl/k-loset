@@ -76,6 +76,27 @@ button {
   --thistle-rose: hsl(309 36% 86%);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+
+  /* Neutral Scale */
+  --neutral-100: oklch(19.522% 0.01644 53.46);
+  --neutral-90: oklch(29.13% 0.01258 51.588);
+  --neutral-80: oklch(38.375% 0.01058 55.923);
+  --neutral-70: oklch(46.869% 0.00913 48.297);
+  --neutral-60: oklch(55.217% 0.00769 53.071);
+  --neutral-50: oklch(63.262% 0.00648 59.266);
+  --neutral-40: oklch(70.766% 0.00447 55.763);
+  --neutral-30: oklch(78.364% 0.00353 67.204);
+  --neutral-20: oklch(85.581% 0.00254 47.238);
+  --neutral-10: oklch(92.846% 0.00163 66.342);
+
+  /* Text */
+  --text-foreground: oklch(19.522% 0.01644 53.46);
+  --discount: oklch(52.206% 0.18031 29.179);
+  --hangul: oklch(48.168% 0.15888 28.704);
+
+  /* Input */
+  --input-background: oklch(29.13% 0.01258 51.588);
+  --input-text: oklch(63.262% 0.00648 59.266);
 }
 
 .dark {
@@ -110,6 +131,27 @@ button {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Neutral Scale */
+  --neutral-100: oklch(19.522% 0.01644 53.46);
+  --neutral-90: oklch(29.13% 0.01258 51.588);
+  --neutral-80: oklch(38.375% 0.01058 55.923);
+  --neutral-70: oklch(46.869% 0.00913 48.297);
+  --neutral-60: oklch(55.217% 0.00769 53.071);
+  --neutral-50: oklch(63.262% 0.00648 59.266);
+  --neutral-40: oklch(70.766% 0.00447 55.763);
+  --neutral-30: oklch(78.364% 0.00353 67.204);
+  --neutral-20: oklch(85.581% 0.00254 47.238);
+  --neutral-10: oklch(92.846% 0.00163 66.342);
+
+  /* Text */
+  --text-foreground: oklch(19.522% 0.01644 53.46);
+  --discount: oklch(52.206% 0.18031 29.179);
+  --hangul: oklch(48.168% 0.15888 28.704);
+
+  /* Input */
+  --input-background: oklch(29.13% 0.01258 51.588);
+  --input-text: oklch(63.262% 0.00648 59.266);
 }
 
 @theme inline {
@@ -158,6 +200,28 @@ button {
   --color-amethyst: var(--amethyst);
   --color-thistle-rose: var(--thistle-rose);
 
+  /* Neutral Scale */
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-90: var(--neutral-90);
+  --color-neutral-80: var(--neutral-80);
+  --color-neutral-70: var(--neutral-70);
+  --color-neutral-60: var(--neutral-60);
+  --color-neutral-50: var(--neutral-50);
+  --color-neutral-40: var(--neutral-40);
+  --color-neutral-30: var(--neutral-30);
+  --color-neutral-20: var(--neutral-20);
+  --color-neutral-10: var(--neutral-10);
+
+  /* Text */
+  --color-text-foreground: var(--text-foreground);
+  --color-discount: var(--discount);
+  --color-hangul: var(--hangul);
+
+  /* Input */
+  --color-input-background: var(--input-background);
+  --color-input-text: var(--input-text);
+
+  /* Fonts */
   --font-sans: var(--font-jost);
   --font-serif: var(--font-libre-caslon);
 }
