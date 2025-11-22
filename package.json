@@ -30,6 +30,7 @@
     "@storybook/addon-docs": "^10.0.8",
     "@storybook/addon-onboarding": "^10.0.8",
     "@storybook/addon-vitest": "^10.0.8",
+    "@storybook/nextjs": "^10.0.8",
     "@storybook/nextjs-vite": "^10.0.8",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/postcss": "^4.0.14",
