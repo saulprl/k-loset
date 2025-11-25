@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
+import { fn } from "storybook/test";
 import { TextButton } from "./text-button";
 
 const meta = {
@@ -19,6 +20,9 @@ const meta = {
       options: ["default", "sm", "lg", "icon", "icon-sm", "icon-lg"],
       description: "The size of the button.",
     },
+  },
+  args: {
+    onClick: fn(),
   },
 } satisfies Meta<typeof TextButton>;
 

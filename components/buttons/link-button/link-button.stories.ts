@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
+import { fn } from "storybook/test";
 import { LinkButton } from "./link-button";
 
 const meta = {
@@ -14,6 +15,9 @@ const meta = {
       description: "Whether to show the trailing icon (a right arrow).",
     },
     children: { control: "text", description: "The button's label." },
+  },
+  args: {
+    onClick: fn(),
   },
 } satisfies Meta<typeof LinkButton>;
 
