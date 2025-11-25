@@ -20,6 +20,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        filter:
+          "border-neutral-20 border-2 bg-white font-medium text-black hover:bg-neutral-10",
       },
       size: {
         default:
@@ -29,6 +31,9 @@ const buttonVariants = cva(
         icon: "size-9",
         "icon-sm": "size-8",
         "icon-lg": "size-10",
+        "filter-sm": "min-w-12 h-12 p-2 rounded-md border-neutral-20 text-2xl",
+        "filter-lg":
+          "min-w-12 h-12 p-2 px-3 rounded-md border-neutral-20 text-2xl",
       },
     },
     defaultVariants: {
