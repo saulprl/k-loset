@@ -1,3 +1,4 @@
+import { CTAButton } from "@/components/buttons/cta-button/cta-button";
 import { cn } from "@/lib/utils";
 
 interface PromotionalBannerProps {
@@ -31,13 +32,13 @@ export const PromotionalBanner = ({
   const getVariantStyles = () => {
     switch (variant) {
       case "morado":
-        return "bg-purple-600 text-white";
+        return "bg-[#282532] text-white";
       case "azul":
-        return "bg-blue-600 text-white";
+        return "bg-[#1E3240] text-white";
       case "crema":
-        return "bg-yellow-100 text-black";
+        return "bg-[#B2856D] text-white";
       case "gris":
-        return "bg-gray-200 text-black";
+        return "bg-[#585858] text-white";
       default:
         return "";
     }
@@ -45,16 +46,24 @@ export const PromotionalBanner = ({
   return (
     <div
       className={cn(
-        "w-full bg-cover bg-center px-4 py-2 text-center text-sm md:text-base",
-        getBackgroundImage(),
-        getVariantStyles()
+        "w-full bg-cover bg-center px-4 py-16 text-center text-sm md:text-base",
+        getBackgroundImage()
       )}
     >
-      <h2 className="font-bold">{title}</h2>
-      <p>{message}</p>
-      <a href={linkUrl} className="underline">
-        {linkText}
-      </a>
+      <div
+        className={cn(
+          "mx-auto w-[80%] rounded-lg px-8 py-6",
+          getVariantStyles()
+        )}
+      >
+        <h2 className="text-4xl font-bold mb-2">{title}</h2>
+        <p className="mb-4">{message}</p>
+        <a href={linkUrl}>
+          <CTAButton trailingIcon dark>
+            {linkText}
+          </CTAButton>
+        </a>
+      </div>
     </div>
   );
 };
