@@ -1,7 +1,7 @@
 "use client";
 
+import CartModal from "@/components/cart/modal";
 import { Logo } from "@/components/logo/logo";
-import { Button } from "@/components/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
@@ -26,7 +26,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Menu } from "@/lib/shopify/types";
-import { ChevronDown, Search, ShoppingBag, UserRound } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -49,8 +49,11 @@ export const Navbar = ({ menu }: Props) => {
       : null;
 
   return (
-    <header className="relative flex h-fit w-full items-start" onMouseLeave={() => setMenuIndex(null)}>
-      <div className="border-neutral-10 flex w-full items-center justify-between gap-8 border-b bg-white px-4 py-4 md:h-12 md:px-16 md:py-8">
+    <header
+      className="relative flex h-fit w-full items-start"
+      onMouseLeave={() => setMenuIndex(null)}
+    >
+      <div className="border-neutral-10 flex w-full items-center justify-between gap-8 border-b bg-white px-4 py-4 md:h-12 md:px-16 md:py-8 lg:py-10">
         <Link href="/">
           <Logo />
         </Link>
@@ -87,21 +90,19 @@ export const Navbar = ({ menu }: Props) => {
 
         <NavigationMenu>
           <NavigationMenuList className="gap-2 sm:gap-6 md:gap-2">
-            <NavigationMenuItem asChild>
+            {/* <NavigationMenuItem asChild>
               <Button variant="ghost" size="icon-sm">
                 <Search />
               </Button>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
             <NavigationMenuItem asChild>
-              <Button variant="ghost" size="icon-sm">
-                <ShoppingBag />
-              </Button>
+              <CartModal />
             </NavigationMenuItem>
-            <NavigationMenuItem asChild>
+            {/* <NavigationMenuItem asChild>
               <Button variant="ghost" size="icon-sm">
                 <UserRound />
               </Button>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
             <NavigationMenuItem asChild className="lg:hidden">
               <SidebarTrigger />
             </NavigationMenuItem>
