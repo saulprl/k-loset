@@ -1,7 +1,3 @@
-import { Carousel } from "components/carousel";
-import { ThreeItemGrid } from "components/grid/three-items";
-import Footer from "components/layout/footer";
-import Image from "next/image";
 
 export const metadata = {
   description:
@@ -14,7 +10,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <div className="relative overflow-hidden p-4 md:h-[80svh]">
+      {/* <div className="relative overflow-hidden p-4 md:h-[80svh]">
         <Image
           src="/img/home-hero.jpg"
           alt="K-loset cover image"
@@ -22,10 +18,10 @@ export default function HomePage() {
           width={1600}
           className="size-full rounded-lg"
         />
-      </div>
-      <ThreeItemGrid />
+      </div> */}
+      {/* <ThreeItemGrid />
       <Carousel />
-      <Footer />
+      <Footer /> */}
     </>
   );
 }
