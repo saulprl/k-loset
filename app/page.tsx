@@ -1,3 +1,4 @@
+import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
 
 export const metadata = {
   description:
@@ -10,6 +11,13 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+      <PromotionalBanner
+        variant="morado"
+        title="Welcome to K-YOBOK"
+        message="Discover our exclusive collection of fashion and accessories."
+        linkText="Shop Now"
+        linkUrl="/shop"
+      />
       {/* <div className="relative overflow-hidden p-4 md:h-[80svh]">
         <Image
           src="/img/home-hero.jpg"
