@@ -4,7 +4,7 @@ import { PromotionalBanner } from "./promotional-banner";
 const meta = {
   title: "Components/Banner/PromotionalBanner",
   parameters: {
-    layout: "fullscreen",
+    layout: "centered",
   },
   tags: ["autodocs"],
   component: PromotionalBanner,

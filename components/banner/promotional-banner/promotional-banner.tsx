@@ -46,13 +46,13 @@ export const PromotionalBanner = ({
   return (
     <div
       className={cn(
-        "w-full bg-cover bg-center px-4 py-16 text-center text-sm md:text-base",
+        "w-full bg-cover bg-center px-12 pt-10 text-center text-sm md:text-base",
         getBackgroundImage()
       )}
     >
       <div
         className={cn(
-          "mx-auto w-[80%] rounded-lg px-8 py-6",
+          "mx-auto w-full rounded-lg px-8 py-6",
           getVariantStyles()
         )}
       >
