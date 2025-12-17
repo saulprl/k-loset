@@ -92,8 +92,8 @@ export type ProductVariant = {
 };
 
 export type SEO = {
-  title: string;
-  description: string;
+  title: string | null;
+  description: string | null;
 };
 
 export type ShopifyCart = {
@@ -114,6 +114,7 @@ export type ShopifyCollection = {
   description: string;
   seo: SEO;
   updatedAt: string;
+  image: Image | null;
   featured?: { value: `${boolean}` } | null;
 };
 

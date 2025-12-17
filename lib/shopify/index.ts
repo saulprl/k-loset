@@ -347,9 +347,9 @@ export async function getCollectionProducts({
 }
 
 export async function getCollections(): Promise<Collection[]> {
-  "use cache";
-  cacheTag(TAGS.collections);
-  cacheLife("days");
+  // "use cache";
+  // cacheTag(TAGS.collections);
+  // cacheLife("days");
 
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
@@ -364,6 +364,7 @@ export async function getCollections(): Promise<Collection[]> {
         title: "All",
         description: "All products",
       },
+      image: null,
       path: "/search",
       updatedAt: new Date().toISOString(),
     },

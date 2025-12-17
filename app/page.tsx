@@ -13,9 +13,11 @@ export const metadata = {
 export default async function HomePage() {
   const featuredCollections = await getFeaturedCollections();
 
+  const heroCollection = featuredCollections[0]!;
+
   return (
     <>
-      <Hero />
+      <Hero collection={heroCollection} />
       <PromotionalBanner
         variant="morado"
         title="Welcome to K-YOBOK"

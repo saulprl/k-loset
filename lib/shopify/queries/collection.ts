@@ -12,6 +12,12 @@ const collectionFragment = /* GraphQL */ `
     featured: metafield(namespace: "custom", key: "featured") {
       value
     }
+    image {
+      url
+      altText
+      width
+      height
+    }
     updatedAt
   }
   ${seoFragment}
@@ -28,7 +34,7 @@ export const getCollectionQuery = /* GraphQL */ `
 
 export const getCollectionsQuery = /* GraphQL */ `
   query getCollections {
-    collections(first: 100, sortKey: TITLE) {
+    collections(first: 100, sortKey: UPDATED_AT, reverse: true) {
       edges {
         node {
           ...collection

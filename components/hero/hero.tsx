@@ -1,25 +1,30 @@
+import { Collection } from "@/lib/shopify/types";
 import { MoveUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export const Hero = () => {
+interface Props {
+  collection: Collection;
+}
+
+export const Hero = ({ collection }: Props) => {
   return (
     <section className="flex w-full flex-col lg:flex-row-reverse lg:items-center">
       <div className="w-full py-7 lg:flex-1/3 lg:px-18">
         <h1 className="text-text-foreground text-center font-sans text-7xl leading-snug font-medium lg:text-start">
-          Timeless Style
+          {collection.title}
         </h1>
       </div>
       <div className="w-full px-5 lg:flex-2/3 lg:px-0">
         <Link
-          href="#"
-          aria-label="Explore the Winter 2025 collection"
+          href={collection.path}
+          aria-label={`Explore the ${collection.title} collection`}
           className="group transition-all duration-300 ease-in-out hover:brightness-105"
         >
           <div className="relative h-112 w-full overflow-hidden lg:aspect-video lg:h-auto">
             <Image
-              src="/img/timeless-style.jpg"
-              alt="Timeless Style"
+              src={collection.image?.url || ""}
+              alt={collection.image?.altText || collection.title}
               fill
               sizes="(min-width: 1024px) 70vw, (min-width: 640px) 95vw, 150vw"
               className="h-full object-cover"
@@ -29,7 +34,7 @@ export const Hero = () => {
                 Collection <MoveUpRight size={12} />
               </span>
               <h2 className="text-2xl font-bold underline-offset-2 group-hover:underline">
-                Winter 2025
+                {collection.title}
               </h2>
             </div>
           </div>
