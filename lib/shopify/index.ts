@@ -300,6 +300,20 @@ export async function getCollection(
   return reshapeCollection(res.body.data.collection);
 }
 
+export async function getFeaturedCollections(): Promise<Collection[]> {
+  // "use cache";
+  // cacheTag(TAGS.collections);
+  // cacheLife("days");
+
+  const collections = await getCollections();
+
+  const featuredCollections = collections.filter(
+    (collection) => collection.featured?.value === "true",
+  );
+
+  return featuredCollections;
+}
+
 export async function getCollectionProducts({
   collection,
   reverse,

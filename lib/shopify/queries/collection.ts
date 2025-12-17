@@ -1,5 +1,5 @@
-import productFragment from '../fragments/product';
-import seoFragment from '../fragments/seo';
+import productFragment from "../fragments/product";
+import seoFragment from "../fragments/seo";
 
 const collectionFragment = /* GraphQL */ `
   fragment collection on Collection {
@@ -8,6 +8,9 @@ const collectionFragment = /* GraphQL */ `
     description
     seo {
       ...seo
+    }
+    featured: metafield(namespace: "custom", key: "featured") {
+      value
     }
     updatedAt
   }

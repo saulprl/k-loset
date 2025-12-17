@@ -114,6 +114,7 @@ export type ShopifyCollection = {
   description: string;
   seo: SEO;
   updatedAt: string;
+  featured?: { value: `${boolean}` } | null;
 };
 
 export type ShopifyProduct = {
