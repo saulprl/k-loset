@@ -1,4 +1,4 @@
-import Footer from "@/components/fotter/fotter";
+import Footer from "@/components/footer/footer";
 import { Navbar } from "@/components/navigation/navbar/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { CartProvider } from "components/cart/cart-context";
