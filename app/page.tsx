@@ -1,4 +1,5 @@
 import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
+import { NewCollectionArrivals } from "@/components/collections/new-collection-arrivals";
 import { Hero } from "@/components/hero/hero";
 import { getFeaturedCollections } from "@/lib/shopify";
 
@@ -18,6 +19,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero collection={heroCollection} />
+      <NewCollectionArrivals />
       <PromotionalBanner
         variant="morado"
         title="Welcome to K-YOBOK"

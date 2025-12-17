@@ -97,6 +97,10 @@ button {
   /* Input */
   --input-background: oklch(29.13% 0.01258 51.588);
   --input-text: oklch(63.262% 0.00648 59.266);
+
+  /* Extra Colors */
+  --brown-red: oklch(48.168% 0.15888 28.704);
+  --royal-gold: oklch(91.088% 0.13458 93.979);
 }
 
 .dark {
@@ -152,6 +156,10 @@ button {
   /* Input */
   --input-background: oklch(29.13% 0.01258 51.588);
   --input-text: oklch(63.262% 0.00648 59.266);
+
+  /* Extra Colors */
+  --brown-red: oklch(48.168% 0.15888 28.704);
+  --royal-gold: oklch(91.088% 0.13458 93.979);
 }
 
 @theme inline {
@@ -220,6 +228,10 @@ button {
   /* Input */
   --color-input-background: var(--input-background);
   --color-input-text: var(--input-text);
+
+  /* Extra Colors */
+  --color-brown-red: var(--brown-red);
+  --color-royal-gold: var(--royal-gold);
 
   /* Fonts */
   --font-sans: var(--font-jost);

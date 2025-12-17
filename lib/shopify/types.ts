@@ -115,6 +115,7 @@ export type ShopifyCollection = {
   seo: SEO;
   updatedAt: string;
   image: Image | null;
+  cardColor?: { value: "Black" | "Brown Red" | "Royal Gold" } | null;
   featured?: { value: `${boolean}` } | null;
 };
 

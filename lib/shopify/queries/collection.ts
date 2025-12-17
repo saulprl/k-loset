@@ -12,6 +12,9 @@ const collectionFragment = /* GraphQL */ `
     featured: metafield(namespace: "custom", key: "featured") {
       value
     }
+    cardColor: metafield(namespace: "custom", key: "card_color") {
+      value
+    }
     image {
       url
       altText
