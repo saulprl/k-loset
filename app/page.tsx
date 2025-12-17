@@ -30,8 +30,7 @@ export default function HomePage() {
         />
       </div> */}
       {/* <ThreeItemGrid />
-      <Carousel />
-      <Footer /> */}
+      <Carousel /> */}
     </>
   );
 }

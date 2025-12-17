@@ -1,3 +1,4 @@
+import Footer from "@/components/fotter/fotter";
 import { Navbar } from "@/components/navigation/navbar/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { CartProvider } from "components/cart/cart-context";
@@ -59,6 +60,7 @@ export default async function RootLayout({
               {children}
               <Toaster closeButton />
             </main>
+            <Footer />
           </SidebarProvider>
         </CartProvider>
       </body>
