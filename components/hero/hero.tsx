@@ -6,7 +6,7 @@ export const Hero = () => {
   return (
     <section className="flex w-full flex-col lg:flex-row-reverse lg:items-center">
       <div className="w-full py-7 lg:flex-1/3 lg:px-18">
-        <h1 className="text-text-foreground lg:text-start text-center font-sans text-7xl leading-snug font-medium">
+        <h1 className="text-text-foreground text-center font-sans text-7xl leading-snug font-medium lg:text-start">
           Timeless Style
         </h1>
       </div>
@@ -16,13 +16,12 @@ export const Hero = () => {
           aria-label="Explore the Winter 2025 collection"
           className="group transition-all duration-300 ease-in-out hover:brightness-105"
         >
-          <div className="relative h-112 w-full lg:h-auto lg:aspect-video overflow-hidden">
+          <div className="relative h-112 w-full overflow-hidden lg:aspect-video lg:h-auto">
             <Image
               src="/img/timeless-style.jpg"
               alt="Timeless Style"
               fill
-              // TODO: Provide proper sizes
-              // sizes="(min-width:"
+              sizes="(min-width: 1024px) 70vw, (min-width: 640px) 95vw, 150vw"
               className="h-full object-cover"
             />
             <div className="absolute inset-0 flex flex-col items-start justify-end gap-1 bg-linear-to-b from-transparent from-50% to-black/90 to-95% p-8 text-white">

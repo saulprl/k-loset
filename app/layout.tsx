@@ -44,7 +44,7 @@ export default async function RootLayout({
 }) {
   // Don't await the fetch, pass the Promise to the context provider
   const cart = getCart();
-  const menu = await getMenu("main-menu");
+  const menu = await getMenu("navbar-menu");
 
   return (
     <html
@@ -53,9 +53,9 @@ export default async function RootLayout({
     >
       <body className="bg-white text-black selection:bg-neutral-50">
         <CartProvider cartPromise={cart}>
-          <SidebarProvider  defaultOpen={false}>
+          <SidebarProvider defaultOpen={false}>
             <Navbar menu={menu} />
-            <main className="container bg-white min-h-svh mx-auto">
+            <main className="container mx-auto min-h-svh bg-white">
               {children}
               <Toaster closeButton />
             </main>
