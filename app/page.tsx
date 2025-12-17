@@ -20,6 +20,18 @@ export default function HomePage() {
         linkText="Shop Now"
         linkUrl="/shop"
       />
+      {/* <div className="relative overflow-hidden p-4 md:h-[80svh]">
+        <Image
+          src="/img/home-hero.jpg"
+          alt="K-loset cover image"
+          height={750}
+          width={1600}
+          className="size-full rounded-lg"
+        />
+      </div> */}
+      {/* <ThreeItemGrid />
+      <Carousel />
+      <Footer /> */}
     </>
   );
 }
