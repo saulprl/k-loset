@@ -33,8 +33,7 @@ export default async function HomePage() {
         />
       </div> */}
       {/* <ThreeItemGrid />
-      <Carousel />
-      <Footer /> */}
+      <Carousel /> */}
     </>
   );
 }
