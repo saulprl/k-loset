@@ -12,7 +12,7 @@ export const Logo = <T extends ElementType = 'h1'>({
   className,
   ...props
 }: LogoProps<T>) => {
-  const Component = as || 'h1';
+  const Component = as || 'span';
   return (
     <Component
       className={cn(

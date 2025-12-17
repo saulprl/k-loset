@@ -1,4 +1,5 @@
 import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
+import { Hero } from "@/components/hero/hero";
 
 export const metadata = {
   description:
@@ -11,6 +12,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+      <Hero />
       <PromotionalBanner
         variant="morado"
         title="Welcome to K-YOBOK"

@@ -51,11 +51,11 @@ export default async function RootLayout({
       lang="en"
       className={`${GeistSans.variable} ${jost.variable} ${libreCaslon.variable} antialiased`}
     >
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
+      <body className="bg-white text-black selection:bg-neutral-50">
         <CartProvider cartPromise={cart}>
           <SidebarProvider  defaultOpen={false}>
             <Navbar menu={menu} />
-            <main className="container bg-gray-800 min-h-svh mx-auto">
+            <main className="container bg-white min-h-svh mx-auto">
               {children}
               <Toaster closeButton />
             </main>
