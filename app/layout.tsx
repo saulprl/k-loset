@@ -56,7 +56,7 @@ export default async function RootLayout({
         <CartProvider cartPromise={cart}>
           <SidebarProvider defaultOpen={false}>
             <Navbar menu={menu} />
-            <main className="container mx-auto min-h-svh bg-white">
+            <main className="w-full max-w-[96rem] mx-auto min-h-svh bg-white">
               {children}
               <Toaster closeButton />
             </main>

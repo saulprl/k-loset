@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const overlayVariants = cva(
   "flex flex-col items-center justify-end py-10 px-12 absolute inset-0 bg-linear-to-b from-transparent to-black/60 from-50% to-85%",
@@ -11,7 +12,7 @@ const overlayVariants = cva(
       color: {
         black: "from-black/10 to-black/50 from-50% to-100%",
         "brown-red": "from-brown-red/10 to-brown-red/40 from-50% to-100%",
-        "royal-gold": "from-royal-gold/10 to-royal-gold/40 from-50% to-100%",
+        "royal-gold": "from-royal-gold/5 to-royal-gold/30 from-50% to-100%",
       },
       direction: {
         up: "bg-linear-to-t",
@@ -28,13 +29,13 @@ const overlayVariants = cva(
 );
 
 const koreanTitleVariants = cva(
-  "text-white font-sans font-extrabold text-3xl",
+  "text-white font-sans font-extrabold text-3xl lg:text-4xl",
   {
     variants: {
       orientation: {
         vertical:
           "[text-orientation:upright] [writing-mode:vertical-rl] tracking-[0.25em]",
-        horizontal: "",
+        horizontal: "tracking-widest",
       },
       position: {
         "top-right": "absolute top-6 right-5",
@@ -56,7 +57,10 @@ interface Props {
 
 export const CollectionCard = ({ collection }: Props) => {
   return (
-    <div className="relative h-114 w-full overflow-hidden rounded-3xl">
+    <Link
+      href={collection.path}
+      className="group relative block h-114 w-full overflow-hidden rounded-3xl transition-all duration-300 ease-in-out hover:brightness-105 lg:h-full"
+    >
       <Image
         src={collection.image?.url ?? "/img/back-2-school.jpg"}
         alt={collection.image?.altText || collection.title}
@@ -73,12 +77,13 @@ export const CollectionCard = ({ collection }: Props) => {
           }),
         )}
       >
-        <h3 className="text-center font-sans text-3xl leading-normal font-bold text-white uppercase">
+        <h3 className="text-center font-sans text-3xl leading-normal font-bold text-white uppercase lg:text-5xl">
           {collection.title}
         </h3>
         {collection.subtitle ? (
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-white">
-            {collection.subtitle.value} <ArrowRight size={10} />
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-white lg:text-xl">
+            {collection.subtitle.value}{" "}
+            <ArrowRight className="size-2.5 lg:size-6 transition-all group-hover:translate-x-1 duration-300 ease-in-out" />
           </span>
         ) : null}
         {collection.koreanTitle?.reference?.title?.value ? (
@@ -98,6 +103,6 @@ export const CollectionCard = ({ collection }: Props) => {
           </p>
         ) : null}
       </div>
-    </div>
+    </Link>
   );
 };
