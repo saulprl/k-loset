@@ -28,6 +28,7 @@ import {
 import { getMenuQuery } from "./queries/menu";
 import { getPageQuery, getPagesQuery } from "./queries/page";
 import {
+  getLatestProductsQuery,
   getProductQuery,
   getProductRecommendationsQuery,
   getProductsQuery,
@@ -492,9 +493,9 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  "use cache";
-  cacheTag(TAGS.products);
-  cacheLife("days");
+  // "use cache";
+  // cacheTag(TAGS.products);
+  // cacheLife("days");
 
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
@@ -506,6 +507,20 @@ export async function getProducts({
   });
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+}
+
+export async function getLatestProducts(): Promise<Product[]> {
+  // "use cache";
+  // cacheTag(TAGS.products);
+  // cacheLife("days");
+
+  const latestProducts = await shopifyFetch<ShopifyProductsOperation>({
+    query: getLatestProductsQuery,
+  });
+
+  return reshapeProducts(
+    removeEdgesAndNodes(latestProducts.body.data.products),
+  );
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

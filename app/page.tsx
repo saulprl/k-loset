@@ -1,7 +1,12 @@
 import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
 import { NewCollectionArrivals } from "@/components/collections/new-collection-arrivals";
 import { Hero } from "@/components/hero/hero";
-import { getFeaturedCollections, getLatestCollections } from "@/lib/shopify";
+import { NewProductArrivals } from "@/components/products/new-product-arrivals";
+import {
+  getFeaturedCollections,
+  getLatestCollections,
+  getLatestProducts,
+} from "@/lib/shopify";
 
 export const metadata = {
   description:
@@ -13,14 +18,16 @@ export const metadata = {
 
 export default async function HomePage() {
   const featuredCollections = await getFeaturedCollections();
+  const latestCollections = await getLatestCollections();
+  const latestProducts = await getLatestProducts();
 
   const heroCollection = featuredCollections[0]!;
-  const latestCollections = await getLatestCollections();
 
   return (
     <>
       <Hero collection={heroCollection} />
       <NewCollectionArrivals collections={latestCollections} />
+      <NewProductArrivals products={latestProducts} />
       <PromotionalBanner
         variant="morado"
         title="Welcome to K-YOBOK"
