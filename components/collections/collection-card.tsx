@@ -1,16 +1,17 @@
+import { Collection } from "@/lib/shopify/types";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const overlayVariants = cva(
-  "flex flex-col items-center justify-end py-10 px-8 absolute inset-0 bg-linear-to-b from-transparent to-black/60 from-50% to-85%",
+  "flex flex-col items-center justify-end py-10 px-12 absolute inset-0 bg-linear-to-b from-transparent to-black/60 from-50% to-85%",
   {
     variants: {
       color: {
-        black: "from-black/10 to-black/40 from-50% to-100%",
-        brownRed: "from-brown-red/10 to-brown-red/40 from-50% to-100%",
-        royalGold: "from-royal-gold/10 to-royal-gold/40 from-50% to-100%",
+        black: "from-black/10 to-black/50 from-50% to-100%",
+        "brown-red": "from-brown-red/10 to-brown-red/40 from-50% to-100%",
+        "royal-gold": "from-royal-gold/10 to-royal-gold/40 from-50% to-100%",
       },
       direction: {
         up: "bg-linear-to-t",
@@ -31,7 +32,8 @@ const koreanTitleVariants = cva(
   {
     variants: {
       orientation: {
-        vertical: "[text-orientation:upright] [writing-mode:vertical-rl]",
+        vertical:
+          "[text-orientation:upright] [writing-mode:vertical-rl] tracking-[0.25em]",
         horizontal: "",
       },
       position: {
@@ -48,36 +50,53 @@ const koreanTitleVariants = cva(
   },
 );
 
-export const CollectionCard = () => {
+interface Props {
+  collection: Collection;
+}
+
+export const CollectionCard = ({ collection }: Props) => {
   return (
     <div className="relative h-114 w-full overflow-hidden rounded-3xl">
       <Image
-        src="/img/back-2-school.jpg"
-        alt="Back to School"
+        src={collection.image?.url ?? "/img/back-2-school.jpg"}
+        alt={collection.image?.altText || collection.title}
         fill
         sizes="(min-width: 1024px) 40vw, 90vw"
         className="object-cover"
       />
       <div
-        className={cn(overlayVariants({ color: "black", direction: "left" }))}
+        className={cn(
+          overlayVariants({
+            color: collection.cardOverlay?.reference?.color?.value ?? "black",
+            direction:
+              collection.cardOverlay?.reference?.direction?.value ?? "down",
+          }),
+        )}
       >
-        <h3 className="text-center font-sans text-3xl leading-normal font-bold text-white">
-          Back 2 School Styles
+        <h3 className="text-center font-sans text-3xl leading-normal font-bold text-white uppercase">
+          {collection.title}
         </h3>
-        <span className="inline-flex items-center gap-1 text-xs font-medium text-white">
-          New items <ArrowRight size={10} />
-        </span>
-        <p
-          className={cn(
-            koreanTitleVariants({
-              orientation: "vertical",
-              position: "top-left",
-            }),
-            "tracking-widest"
-          )}
-        >
-          학교로돌아가기
-        </p>
+        {collection.subtitle ? (
+          <span className="inline-flex items-center gap-1 text-xs font-medium text-white">
+            {collection.subtitle.value} <ArrowRight size={10} />
+          </span>
+        ) : null}
+        {collection.koreanTitle?.reference?.title?.value ? (
+          <p
+            className={cn(
+              koreanTitleVariants({
+                orientation:
+                  collection.koreanTitle?.reference?.orientation?.value ??
+                  "horizontal",
+                position:
+                  collection.koreanTitle?.reference?.position?.value ??
+                  "top-left",
+              }),
+            )}
+          >
+            {collection.koreanTitle?.reference?.title?.value}
+          </p>
+        ) : null}
       </div>
     </div>
   );

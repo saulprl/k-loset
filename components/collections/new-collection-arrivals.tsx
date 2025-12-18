@@ -1,7 +1,12 @@
+import { Collection } from "@/lib/shopify/types";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import { CollectionCard } from "./collection-card";
 
-export const NewCollectionArrivals = () => {
+interface Props {
+  collections: Collection[];
+}
+
+export const NewCollectionArrivals = ({ collections }: Props) => {
   return (
     <section className="flex w-full flex-col">
       <div className="px-5 py-16">
@@ -10,17 +15,13 @@ export const NewCollectionArrivals = () => {
         </p>
       </div>
       <div>
-        <Carousel className="lg:hidden w-full">
+        <Carousel className="w-full lg:hidden">
           <CarouselContent className="-ml-4">
-            <CarouselItem className="basis-9/10">
-              <CollectionCard />
-            </CarouselItem>
-            <CarouselItem className="basis-9/10">
-              <CollectionCard />
-            </CarouselItem>
-            <CarouselItem className="basis-9/10">
-              <CollectionCard />
-            </CarouselItem>
+            {collections.map((collection) => (
+              <CarouselItem key={collection.handle} className="basis-9/10">
+                <CollectionCard collection={collection} />
+              </CarouselItem>
+            ))}
           </CarouselContent>
         </Carousel>
       </div>

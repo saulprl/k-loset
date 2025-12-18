@@ -109,14 +109,34 @@ export type ShopifyCart = {
 };
 
 export type ShopifyCollection = {
+  id: string;
   handle: string;
   title: string;
   description: string;
   seo: SEO;
   updatedAt: string;
   image: Image | null;
-  cardColor?: { value: "Black" | "Brown Red" | "Royal Gold" } | null;
+  cardOverlay?: {
+    reference: {
+      id: string;
+      handle: string;
+      color?: { value: "black" | "brown-red" | "royal-gold" } | null;
+      direction?: { value: "up" | "down" | "left" | "right" } | null;
+    } | null;
+  } | null;
+  koreanTitle?: {
+    reference: {
+      id: string;
+      handle: string;
+      title?: { value: string } | null;
+      orientation?: { value: "vertical" | "horizontal" } | null;
+      position?: {
+        value: "top-right" | "bottom-left" | "bottom-right" | "top-left";
+      } | null;
+    } | null;
+  } | null;
   featured?: { value: `${boolean}` } | null;
+  subtitle?: { value: string } | null;
 };
 
 export type ShopifyProduct = {

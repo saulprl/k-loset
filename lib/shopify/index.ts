@@ -23,6 +23,7 @@ import {
   getCollectionProductsQuery,
   getCollectionQuery,
   getCollectionsQuery,
+  getLatestCollectionsQuery,
 } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
 import { getPageQuery, getPagesQuery } from "./queries/page";
@@ -355,8 +356,9 @@ export async function getCollections(): Promise<Collection[]> {
     query: getCollectionsQuery,
   });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
-  const collections = [
+  const collections: Collection[] = [
     {
+      id: "all",
       handle: "",
       title: "All",
       description: "All products",
@@ -364,9 +366,12 @@ export async function getCollections(): Promise<Collection[]> {
         title: "All",
         description: "All products",
       },
-      image: null,
       path: "/search",
       updatedAt: new Date().toISOString(),
+      image: null,
+      cardOverlay: null,
+      featured: null,
+      subtitle: null,
     },
     // Filter out the `hidden` collections.
     // Collections that start with `hidden-*` need to be hidden on the search page.
@@ -376,6 +381,19 @@ export async function getCollections(): Promise<Collection[]> {
   ];
 
   return collections;
+}
+
+export async function getLatestCollections(): Promise<Collection[]> {
+  // "use cache";
+  // cacheTag(TAGS.collections);
+  // cacheLife("days");
+
+  const res = await shopifyFetch<ShopifyCollectionsOperation>({
+    query: getLatestCollectionsQuery,
+  });
+  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+
+  return reshapeCollections(shopifyCollections);
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {

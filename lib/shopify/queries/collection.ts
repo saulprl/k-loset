@@ -3,6 +3,7 @@ import seoFragment from "../fragments/seo";
 
 const collectionFragment = /* GraphQL */ `
   fragment collection on Collection {
+    id
     handle
     title
     description
@@ -12,7 +13,7 @@ const collectionFragment = /* GraphQL */ `
     featured: metafield(namespace: "custom", key: "featured") {
       value
     }
-    cardColor: metafield(namespace: "custom", key: "card_color") {
+    subtitle: metafield(namespace: "custom", key: "subtitle") {
       value
     }
     image {
@@ -20,6 +21,37 @@ const collectionFragment = /* GraphQL */ `
       altText
       width
       height
+    }
+    cardOverlay: metafield(namespace: "custom", key: "card_overlay") {
+      reference {
+        ... on Metaobject {
+          id
+          handle
+          color: field(key: "color") {
+            value
+          }
+          direction: field(key: "direction") {
+            value
+          }
+        }
+      }
+    }
+    koreanTitle: metafield(namespace: "custom", key: "korean_title") {
+      reference {
+        ... on Metaobject {
+          id
+          handle
+          title: field(key: "value") {
+            value
+          }
+          orientation: field(key: "orientation") {
+            value
+          }
+          position: field(key: "position") {
+            value
+          }
+        }
+      }
     }
     updatedAt
   }
@@ -38,6 +70,19 @@ export const getCollectionQuery = /* GraphQL */ `
 export const getCollectionsQuery = /* GraphQL */ `
   query getCollections {
     collections(first: 100, sortKey: UPDATED_AT, reverse: true) {
+      edges {
+        node {
+          ...collection
+        }
+      }
+    }
+  }
+  ${collectionFragment}
+`;
+
+export const getLatestCollectionsQuery = /* GraphQL */ `
+  query getLatestCollections {
+    collections(first: 5, sortKey: UPDATED_AT, reverse: true) {
       edges {
         node {
           ...collection

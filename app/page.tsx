@@ -1,7 +1,7 @@
 import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
 import { NewCollectionArrivals } from "@/components/collections/new-collection-arrivals";
 import { Hero } from "@/components/hero/hero";
-import { getFeaturedCollections } from "@/lib/shopify";
+import { getFeaturedCollections, getLatestCollections } from "@/lib/shopify";
 
 export const metadata = {
   description:
@@ -15,11 +15,12 @@ export default async function HomePage() {
   const featuredCollections = await getFeaturedCollections();
 
   const heroCollection = featuredCollections[0]!;
+  const latestCollections = await getLatestCollections();
 
   return (
     <>
       <Hero collection={heroCollection} />
-      <NewCollectionArrivals />
+      <NewCollectionArrivals collections={latestCollections} />
       <PromotionalBanner
         variant="morado"
         title="Welcome to K-YOBOK"
