@@ -1,5 +1,7 @@
-import { CTAButton } from "@/components/buttons/cta-button/cta-button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { MoveRight } from "lucide-react";
+import Link from "next/link";
 
 interface PromotionalBannerProps {
   variant?: "morado" | "azul" | "crema" | "gris";
@@ -42,27 +44,32 @@ export const PromotionalBanner = ({
       default:
         return "";
     }
-  }
+  };
   return (
     <div
       className={cn(
-        "w-full bg-cover bg-center px-12 pt-10 text-center text-sm md:text-base",
-        getBackgroundImage()
+        "w-full bg-cover bg-center p-4 pt-18 text-center text-sm md:text-base lg:px-10 lg:pt-12 lg:pb-0",
+        getBackgroundImage(),
       )}
     >
       <div
         className={cn(
-          "mx-auto w-full rounded-lg px-8 py-6",
-          getVariantStyles()
+          "mx-auto w-full px-8 py-6",
+          getVariantStyles(),
         )}
       >
-        <h2 className="text-4xl font-bold mb-2">{title}</h2>
+        <h3 className="mb-2 text-4xl font-bold">{title}</h3>
         <p className="mb-4">{message}</p>
-        <a href={linkUrl}>
-          <CTAButton trailingIcon dark>
-            {linkText}
-          </CTAButton>
-        </a>
+        <Link
+          href={linkUrl}
+          className={cn(
+            buttonVariants({ variant: "default", size: "sm" }),
+            "has-[>svg]:gap-2 has-[>svg]:px-6",
+          )}
+        >
+          {linkText}
+          <MoveRight />
+        </Link>
       </div>
     </div>
   );

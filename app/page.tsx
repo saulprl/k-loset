@@ -28,13 +28,15 @@ export default async function HomePage() {
       <Hero collection={heroCollection} />
       <NewCollectionArrivals collections={latestCollections} />
       <NewProductArrivals products={latestProducts} />
-      <PromotionalBanner
-        variant="morado"
-        title="Welcome to K-YOBOK"
-        message="Discover our exclusive collection of fashion and accessories."
-        linkText="Shop Now"
-        linkUrl="/shop"
-      />
+      <section className="w-full p-0">
+        <PromotionalBanner
+          variant="morado"
+          title="Welcome to K-YOBOK"
+          message="Discover our exclusive collection of fashion and accessories."
+          linkText="Shop Now"
+          linkUrl="/shop"
+        />
+      </section>
       {/* <div className="relative overflow-hidden p-4 md:h-[80svh]">
         <Image
           src="/img/home-hero.jpg"
