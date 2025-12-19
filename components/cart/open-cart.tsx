@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { ShoppingBag } from "lucide-react";
+import { Badge } from "../ui/badge";
 
 export default function OpenCart({
   className,
@@ -9,7 +10,7 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <>
+    <span className={clsx("relative inline-block", className)}>
       <ShoppingBag
         className={clsx(
           "transition-all ease-in-out hover:scale-110",
@@ -18,10 +19,13 @@ export default function OpenCart({
       />
 
       {quantity ? (
-        <div className="absolute top-0 right-0 -mt-2 -mr-2 h-4 w-4 rounded-sm bg-blue-600 text-[11px] font-medium text-white">
+        <Badge
+          variant="default"
+          className="absolute -top-1/3 -right-1/3 size-4"
+        >
           {quantity}
-        </div>
+        </Badge>
       ) : null}
-    </>
+    </span>
   );
 }
