@@ -1,6 +1,5 @@
 import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
 import { NewCollectionArrivals } from "@/components/collections/new-collection-arrivals";
-import { Hero } from "@/components/hero/hero";
 import { NewProductArrivals } from "@/components/products/new-product-arrivals";
 import {
   getFeaturedCollections,
@@ -23,11 +22,9 @@ export default async function HomePage() {
 
   const heroCollection = featuredCollections[0]!;
 
-  return null;
-
   return (
     <>
-      <Hero collection={heroCollection} />
+      {/* <Hero collection={heroCollection} /> */}
       <NewCollectionArrivals collections={latestCollections} />
       <NewProductArrivals products={latestProducts} />
       <section className="w-full p-0">
