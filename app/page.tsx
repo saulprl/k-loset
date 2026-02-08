@@ -8,6 +8,8 @@ import {
   getLatestProducts,
 } from "@/lib/shopify";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   description:
     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
