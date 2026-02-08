@@ -23,6 +23,8 @@ export default async function HomePage() {
 
   const heroCollection = featuredCollections[0]!;
 
+  return null;
+
   return (
     <>
       <Hero collection={heroCollection} />
