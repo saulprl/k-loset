@@ -21,8 +21,10 @@ export const CTAButton: FC<Props> = ({
       className={cn("cursor-pointer", className)}
       {...props}
     >
-      {children}
-      {trailingIcon && <MoveRight />}
+      <>
+        {children}
+        {trailingIcon && <MoveRight />}
+      </>
     </Button>
   );
 };
