@@ -7,15 +7,14 @@ import {
   getLatestCollections,
   getLatestProducts,
 } from "@/lib/shopify";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  description:
-    "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
-  openGraph: {
-    type: "website",
-  },
-};
+// export const metadata: Metadata = {
+//   description:
+//     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
+//   openGraph: {
+//     type: "website",
+//   },
+// };
 
 export default async function HomePage() {
   const featuredCollections = await getFeaturedCollections();
