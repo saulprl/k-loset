@@ -1,11 +1,10 @@
-export default {
+import { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   experimental: {
     ppr: true,
     inlineCss: true,
     useCache: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   images: {
     formats: ["image/avif", "image/webp"],
@@ -18,3 +17,5 @@ export default {
     ],
   },
 };
+
+export default nextConfig;
