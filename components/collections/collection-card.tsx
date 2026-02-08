@@ -56,6 +56,8 @@ interface Props {
 }
 
 export const CollectionCard = ({ collection }: Props) => {
+  console.log("CollectionCard collection:", collection);
+
   return (
     <Link
       href={collection.path}
@@ -83,7 +85,7 @@ export const CollectionCard = ({ collection }: Props) => {
         {collection.subtitle ? (
           <span className="inline-flex items-center gap-1 text-xs font-medium text-white lg:text-xl">
             {collection.subtitle.value}{" "}
-            <ArrowRight className="size-2.5 lg:size-6 transition-all group-hover:translate-x-1 duration-300 ease-in-out" />
+            <ArrowRight className="size-2.5 transition-all duration-300 ease-in-out group-hover:translate-x-1 lg:size-6" />
           </span>
         ) : null}
         {collection.koreanTitle?.reference?.title?.value ? (

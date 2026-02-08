@@ -35,27 +35,31 @@ export const NewProductArrivals = ({ products }: Props) => {
       <div className="pb-16">
         <ScrollArea className="w-full max-lg:hidden">
           <div className="flex w-max gap-4 px-4 pb-4">
-            {products.map((product) => (
-              <div key={product.id} className="w-90">
-                <Link
-                  href={`/product/${product.handle}`}
-                  className="relative block size-full"
-                >
-                  <GridTileImage
-                    src={product.featuredImage?.url ?? ""}
-                    alt={product.title}
-                    label={{
-                      title: product.title,
-                      amount: product.priceRange.maxVariantPrice.amount,
-                      currencyCode:
-                        product.priceRange.maxVariantPrice.currencyCode,
-                    }}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  />
-                </Link>
-              </div>
-            ))}
+            {products.map((product) => {
+              console.log("Rendering product in NewProductArrivals:", product);
+
+              return (
+                <div key={product.id} className="w-90">
+                  <Link
+                    href={`/product/${product.handle}`}
+                    className="relative block size-full"
+                  >
+                    <GridTileImage
+                      src={product.featuredImage?.url ?? ""}
+                      alt={product.title}
+                      label={{
+                        title: product.title,
+                        amount: product.priceRange.maxVariantPrice.amount,
+                        currencyCode:
+                          product.priceRange.maxVariantPrice.currencyCode,
+                      }}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    />
+                  </Link>
+                </div>
+              );
+            })}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>

@@ -7,10 +7,9 @@ import {
   getLatestCollections,
   getLatestProducts,
 } from "@/lib/shopify";
+import { Metadata } from "next";
 
-export const dynamic = "force-dynamic";
-
-export const metadata = {
+export const metadata: Metadata = {
   description:
     "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
   openGraph: {

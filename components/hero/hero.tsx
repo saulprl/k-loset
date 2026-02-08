@@ -8,6 +8,8 @@ interface Props {
 }
 
 export const Hero = ({ collection }: Props) => {
+  console.log("Hero collection:", collection);
+
   return (
     <section className="flex w-full flex-col lg:flex-row-reverse lg:items-center">
       <div className="w-full py-7 lg:flex-1/3 lg:px-18">
