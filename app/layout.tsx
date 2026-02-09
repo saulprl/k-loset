@@ -1,3 +1,4 @@
+import { TopMarqueeBanner } from "@/components/banner/top-marquee-banner/top-marquee-banner";
 import Footer from "@/components/footer/footer";
 import { Navbar } from "@/components/navigation/navbar/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -55,8 +56,9 @@ export default async function RootLayout({
       <body className="bg-white text-black selection:bg-neutral-50">
         <CartProvider cartPromise={cart}>
           <SidebarProvider defaultOpen={false}>
+            <TopMarqueeBanner />
             <Navbar menu={menu} />
-            <main className="w-full max-w-[96rem] mx-auto min-h-svh bg-white">
+            <main className="mx-auto min-h-svh w-full max-w-[96rem] bg-white">
               {children}
               <Toaster closeButton />
             </main>
