@@ -3,27 +3,27 @@
 import CartModal from "@/components/cart/modal";
 import { Logo } from "@/components/logo/logo";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarTrigger,
+    Sidebar,
+    SidebarContent,
+    SidebarGroup,
+    SidebarGroupLabel,
+    SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
+    SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Menu } from "@/lib/shopify/types";
 import { ChevronDown } from "lucide-react";
@@ -41,8 +41,10 @@ export const Navbar = ({ menu }: Props) => {
     menuIndex !== null
       ? menu[menuIndex]?.children.map((subItem) => (
           <NavigationMenuItem key={`navbar-subitem-${subItem.title}`}>
-            <NavigationMenuLink href={subItem.path} className="text-2xl">
-              {subItem.title}
+            <NavigationMenuLink asChild>
+              <Link href={subItem.path} className="text-2xl">
+                {subItem.title}
+              </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         ))
@@ -76,11 +78,13 @@ export const Navbar = ({ menu }: Props) => {
 
               return (
                 <NavigationMenuItem key={`navbar-item-${item.title}`}>
-                  <NavigationMenuLink
-                    href={item.path}
-                    className="text-2xl font-medium lg:text-xl"
-                  >
-                    {item.title}
+                  <NavigationMenuLink asChild>
+                    <Link
+                      href={item.path}
+                      className="text-2xl font-medium lg:text-xl"
+                    >
+                      {item.title}
+                    </Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               );

@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navigation/navbar/navbar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { CartProvider } from "components/cart/cart-context";
 import { GeistSans } from "geist/font/sans";
+import { DEFAULT_NAVBAR_MENU } from "lib/constants";
 import { getCart, getMenu } from "lib/shopify";
 import { baseUrl } from "lib/utils";
 import { Jost, Libre_Caslon_Display } from "next/font/google";
@@ -46,7 +47,15 @@ export default async function RootLayout({
 }) {
   // Don't await the fetch, pass the Promise to the context provider
   const cart = getCart();
-  const menu = await getMenu("navbar-menu");
+  const shopifyMenu = await getMenu("navbar-menu");
+
+  // Combine Shopify menu with missing default items
+  const existingTitles = shopifyMenu.map((item) => item.title.toLowerCase());
+  const missingItems = DEFAULT_NAVBAR_MENU.filter(
+    (item) => !existingTitles.includes(item.title.toLowerCase()),
+  );
+
+  const menu = [...shopifyMenu, ...missingItems];
 
   return (
     <html
