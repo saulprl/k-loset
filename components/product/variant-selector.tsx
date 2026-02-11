@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { useProduct, useUpdateURL } from 'components/product/product-context';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
+import clsx from "clsx";
+import { useProduct, useUpdateURL } from "components/product/product-context";
+import { ProductOption, ProductVariant } from "lib/shopify/types";
 
 type Combination = {
   id: string;
@@ -10,9 +10,45 @@ type Combination = {
   [key: string]: string | boolean;
 };
 
+// Color mapping for common color names
+const colorMap: Record<string, string> = {
+  black: "#000000",
+  white: "#FFFFFF",
+  red: "#EF4444",
+  blue: "#3B82F6",
+  green: "#22C55E",
+  yellow: "#EAB308",
+  purple: "#A855F7",
+  pink: "#EC4899",
+  orange: "#F97316",
+  gray: "#6B7280",
+  grey: "#6B7280",
+  navy: "#1E3A5A",
+  brown: "#92400E",
+  beige: "#D4C4B0",
+  cream: "#FFFDD0",
+  tan: "#D2B48C",
+  olive: "#808000",
+  maroon: "#800000",
+  coral: "#FF7F50",
+  teal: "#008080",
+  mint: "#98FF98",
+  lavender: "#E6E6FA",
+  almond: "#EFDECD",
+  "almond dream": "#EFDECD",
+  sage: "#9DC183",
+  "dusty rose": "#DCAE96",
+  charcoal: "#36454F",
+};
+
+function getColorValue(colorName: string): string | null {
+  const normalized = colorName.toLowerCase().trim();
+  return colorMap[normalized] || null;
+}
+
 export function VariantSelector({
   options,
-  variants
+  variants,
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
@@ -20,7 +56,8 @@ export function VariantSelector({
   const { state, updateOption } = useProduct();
   const updateURL = useUpdateURL();
   const hasNoOptionsOrJustOneOption =
-    !options.length || (options.length === 1 && options[0]?.values.length === 1);
+    !options.length ||
+    (options.length === 1 && options[0]?.values.length === 1);
 
   if (hasNoOptionsOrJustOneOption) {
     return null;
@@ -30,64 +67,112 @@ export function VariantSelector({
     id: variant.id,
     availableForSale: variant.availableForSale,
     ...variant.selectedOptions.reduce(
-      (accumulator, option) => ({ ...accumulator, [option.name.toLowerCase()]: option.value }),
-      {}
-    )
+      (accumulator, option) => ({
+        ...accumulator,
+        [option.name.toLowerCase()]: option.value,
+      }),
+      {},
+    ),
   }));
 
-  return options.map((option) => (
-    <form key={option.id}>
-      <dl className="mb-8">
-        <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
-        <dd className="flex flex-wrap gap-3">
-          {option.values.map((value) => {
-            const optionNameLowerCase = option.name.toLowerCase();
+  return options.map((option) => {
+    const optionNameLowerCase = option.name.toLowerCase();
+    const isColorOption =
+      optionNameLowerCase === "color" || optionNameLowerCase === "colour";
+    const isSizeOption = optionNameLowerCase === "size";
 
-            // Base option params on current selectedOptions so we can preserve any other param state.
-            const optionParams = { ...state, [optionNameLowerCase]: value };
+    return (
+      <form key={option.id} className="mb-6">
+        <dl>
+          <dt className="mb-3 text-sm text-neutral-600 dark:text-neutral-400">
+            {option.name}:{" "}
+            <span className="font-medium text-neutral-900 dark:text-white">
+              {state[optionNameLowerCase] || option.values[0]}
+            </span>
+          </dt>
+          <dd className="flex flex-wrap gap-2">
+            {option.values.map((value) => {
+              const optionParams = { ...state, [optionNameLowerCase]: value };
+              const filtered = Object.entries(optionParams).filter(
+                ([key, value]) =>
+                  options.find(
+                    (option) =>
+                      option.name.toLowerCase() === key &&
+                      option.values.includes(value),
+                  ),
+              );
+              const isAvailableForSale = combinations.find((combination) =>
+                filtered.every(
+                  ([key, value]) =>
+                    combination[key] === value && combination.availableForSale,
+                ),
+              );
+              const isActive = state[optionNameLowerCase] === value;
+              const colorValue = isColorOption ? getColorValue(value) : null;
 
-            // Filter out invalid options and check if the option combination is available for sale.
-            const filtered = Object.entries(optionParams).filter(([key, value]) =>
-              options.find(
-                (option) => option.name.toLowerCase() === key && option.values.includes(value)
-              )
-            );
-            const isAvailableForSale = combinations.find((combination) =>
-              filtered.every(
-                ([key, value]) => combination[key] === value && combination.availableForSale
-              )
-            );
+              if (isColorOption && colorValue) {
+                // Render color swatch
+                return (
+                  <button
+                    formAction={() => {
+                      const newState = updateOption(optionNameLowerCase, value);
+                      updateURL(newState);
+                    }}
+                    key={value}
+                    aria-disabled={!isAvailableForSale}
+                    disabled={!isAvailableForSale}
+                    title={`${option.name}: ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
+                    className={clsx(
+                      "relative h-8 w-8 rounded-full transition-all duration-200",
+                      {
+                        "ring-2 ring-neutral-900 ring-offset-2 dark:ring-white":
+                          isActive,
+                        "hover:ring-2 hover:ring-neutral-400 hover:ring-offset-2":
+                          !isActive && isAvailableForSale,
+                        "cursor-not-allowed opacity-40": !isAvailableForSale,
+                      },
+                    )}
+                    style={{ backgroundColor: colorValue }}
+                  >
+                    {!isAvailableForSale && (
+                      <span className="absolute inset-0 flex items-center justify-center">
+                        <span className="h-px w-full rotate-45 bg-neutral-500" />
+                      </span>
+                    )}
+                  </button>
+                );
+              }
 
-            // The option is active if it's in the selected options.
-            const isActive = state[optionNameLowerCase] === value;
-
-            return (
-              <button
-                formAction={() => {
-                  const newState = updateOption(optionNameLowerCase, value);
-                  updateURL(newState);
-                }}
-                key={value}
-                aria-disabled={!isAvailableForSale}
-                disabled={!isAvailableForSale}
-                title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
-                className={clsx(
-                  'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
-                  {
-                    'cursor-default ring-2 ring-blue-600': isActive,
-                    'ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-blue-600':
-                      !isActive && isAvailableForSale,
-                    'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 dark:before:bg-neutral-700':
-                      !isAvailableForSale
-                  }
-                )}
-              >
-                {value}
-              </button>
-            );
-          })}
-        </dd>
-      </dl>
-    </form>
-  ));
+              // Render size or other options as boxed buttons
+              return (
+                <button
+                  formAction={() => {
+                    const newState = updateOption(optionNameLowerCase, value);
+                    updateURL(newState);
+                  }}
+                  key={value}
+                  aria-disabled={!isAvailableForSale}
+                  disabled={!isAvailableForSale}
+                  title={`${option.name} ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
+                  className={clsx(
+                    "flex h-10 min-w-[40px] items-center justify-center border px-3 text-sm transition-all duration-200",
+                    {
+                      "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-900":
+                        isActive,
+                      "border-neutral-200 bg-white text-neutral-900 hover:border-neutral-900 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:border-white":
+                        !isActive && isAvailableForSale,
+                      "cursor-not-allowed border-neutral-200 bg-neutral-50 text-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600":
+                        !isAvailableForSale,
+                    },
+                  )}
+                >
+                  {value}
+                </button>
+              );
+            })}
+          </dd>
+        </dl>
+      </form>
+    );
+  });
 }
