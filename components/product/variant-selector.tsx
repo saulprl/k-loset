@@ -46,6 +46,15 @@ function getColorValue(colorName: string): string | null {
   return colorMap[normalized] || null;
 }
 
+function isLikelySizeValue(value: string): boolean {
+  const normalized = value.trim().toLowerCase();
+  return /^(xxs|xs|s|m|l|xl|xxl|xxxl|\d{1,2})$/.test(normalized);
+}
+
+function normalizeOptionName(name: string): string {
+  return name.trim().toLowerCase();
+}
+
 export function VariantSelector({
   options,
   variants,
@@ -55,11 +64,30 @@ export function VariantSelector({
 }) {
   const { state, updateOption } = useProduct();
   const updateURL = useUpdateURL();
-  const hasNoOptionsOrJustOneOption =
-    !options.length ||
-    (options.length === 1 && options[0]?.values.length === 1);
 
-  if (hasNoOptionsOrJustOneOption) {
+  // Filter out "Title" option with "Default Title" value (Shopify default)
+  const hasNonTitleOption = options.some(
+    (option) => normalizeOptionName(option.name) !== "title",
+  );
+
+  const filteredOptions = options.filter((option) => {
+    const optionName = normalizeOptionName(option.name);
+
+    if (optionName !== "title") {
+      return true;
+    }
+
+    // If Shopify provides real variant options (e.g. Size/Color), hide noisy Title.
+    if (hasNonTitleOption) {
+      return false;
+    }
+
+    // If Title is the only option, keep it only when it is not Default Title.
+    return !option.values.includes("Default Title");
+  });
+
+  // Only hide if there are truly no options
+  if (!filteredOptions.length) {
     return null;
   }
 
@@ -75,17 +103,22 @@ export function VariantSelector({
     ),
   }));
 
-  return options.map((option) => {
-    const optionNameLowerCase = option.name.toLowerCase();
+  return filteredOptions.map((option) => {
+    const optionNameLowerCase = normalizeOptionName(option.name);
+    const isSizeOptionName =
+      optionNameLowerCase === "size" || optionNameLowerCase === "talla";
+    const titleLooksLikeSize =
+      optionNameLowerCase === "title" && option.values.every(isLikelySizeValue);
     const isColorOption =
       optionNameLowerCase === "color" || optionNameLowerCase === "colour";
-    const isSizeOption = optionNameLowerCase === "size";
+    const isSizeOption = isSizeOptionName || titleLooksLikeSize;
+    const displayOptionName = isSizeOption ? "Size" : option.name;
 
     return (
       <form key={option.id} className="mb-6">
         <dl>
           <dt className="mb-3 text-sm text-neutral-600 dark:text-neutral-400">
-            {option.name}:{" "}
+            {displayOptionName}:{" "}
             <span className="font-medium text-neutral-900 dark:text-white">
               {state[optionNameLowerCase] || option.values[0]}
             </span>
@@ -95,9 +128,9 @@ export function VariantSelector({
               const optionParams = { ...state, [optionNameLowerCase]: value };
               const filtered = Object.entries(optionParams).filter(
                 ([key, value]) =>
-                  options.find(
+                  filteredOptions.find(
                     (option) =>
-                      option.name.toLowerCase() === key &&
+                      normalizeOptionName(option.name) === key &&
                       option.values.includes(value),
                   ),
               );
@@ -155,7 +188,7 @@ export function VariantSelector({
                   disabled={!isAvailableForSale}
                   title={`${option.name} ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
                   className={clsx(
-                    "flex h-10 min-w-[40px] items-center justify-center border px-3 text-sm transition-all duration-200",
+                    "flex h-10 items-center justify-center border px-3 text-sm transition-all duration-200",
                     {
                       "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-neutral-900":
                         isActive,
@@ -163,6 +196,8 @@ export function VariantSelector({
                         !isActive && isAvailableForSale,
                       "cursor-not-allowed border-neutral-200 bg-neutral-50 text-neutral-300 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-600":
                         !isAvailableForSale,
+                      "min-w-[56px]": isSizeOption,
+                      "min-w-[40px]": !isSizeOption,
                     },
                   )}
                 >

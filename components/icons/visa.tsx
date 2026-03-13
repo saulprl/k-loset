@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils"
-import { SVGProps } from "react"
-export const VisaIcon = ({className, ...props}: SVGProps<SVGSVGElement>) => (
+import { cn } from "@/lib/utils";
+import { SVGProps } from "react";
+export const VisaIcon = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -10,7 +10,7 @@ export const VisaIcon = ({className, ...props}: SVGProps<SVGSVGElement>) => (
   >
     <g clipPath="url(#a)">
       <path
-        fill="#fff"
+        fill="#000"
         d="M31.257.025c-3.405 0-6.447 1.812-6.447 5.159 0 3.839 5.396 4.104 5.396 6.032 0 .813-.906 1.54-2.455 1.54-2.197 0-3.839-1.016-3.839-1.016l-.703 3.378s1.892.858 4.404.858c3.722 0 6.651-1.9 6.651-5.306 0-4.056-5.418-4.313-5.418-6.103 0-.637.744-1.333 2.287-1.333 1.742 0 3.163.738 3.163.738L34.984.71S33.437.025 31.257.025ZM.107.27.024.763s1.432.27 2.723.807c1.66.615 1.779.974 2.059 2.087l3.048 12.065h4.087L18.237.27H14.16l-4.046 10.505-1.65-8.905C8.311.852 7.544.271 6.606.271h-6.5Zm19.77 0-3.199 15.45h3.888L23.753.272h-3.877Zm21.684 0c-.938 0-1.434.515-1.799 1.416l-5.696 14.035h4.077l.789-2.34h4.967l.48 2.34h3.597L44.838.27H41.56Zm.53 4.174 1.209 5.798h-3.238l2.03-5.798Z"
       />
     </g>
@@ -20,5 +20,4 @@ export const VisaIcon = ({className, ...props}: SVGProps<SVGSVGElement>) => (
       </clipPath>
     </defs>
   </svg>
-)
-
+);

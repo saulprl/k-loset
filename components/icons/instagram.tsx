@@ -1,6 +1,9 @@
-import { cn } from "@/lib/utils"
-import { SVGProps } from "react"
-export const InstagramIcon = ({className, ...props}: SVGProps<SVGSVGElement>) => (
+import { cn } from "@/lib/utils";
+import { SVGProps } from "react";
+export const InstagramIcon = ({
+  className,
+  ...props
+}: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 33 33"
@@ -9,12 +12,12 @@ export const InstagramIcon = ({className, ...props}: SVGProps<SVGSVGElement>) =>
     {...props}
   >
     <path
-      fill="#fff"
+      fill="#000"
       d="M23.168 0H9.83A9.839 9.839 0 0 0 0 9.831v13.337A9.838 9.838 0 0 0 9.831 33h13.337a9.84 9.84 0 0 0 9.83-9.832V9.83A9.836 9.836 0 0 0 23.169 0Zm6.512 23.168a6.514 6.514 0 0 1-6.512 6.512H9.83a6.512 6.512 0 0 1-6.511-6.512V9.83A6.51 6.51 0 0 1 9.83 3.32h13.337a6.513 6.513 0 0 1 6.511 6.511l.002 13.337Z"
     />
     <path
-      fill="#fff"
+      fill="#000"
       d="M16.5 7.968c-4.707 0-8.532 3.826-8.532 8.532 0 4.706 3.826 8.532 8.532 8.532 4.706 0 8.532-3.826 8.532-8.532 0-4.706-3.825-8.532-8.532-8.532Zm0 13.744a5.213 5.213 0 1 1-.001-10.425 5.213 5.213 0 0 1 .001 10.425Zm8.55-15.726a2.045 2.045 0 1 1-2.046 2.047c0-1.128.765-2.046 2.046-2.046Z"
     />
   </svg>
-)
+);

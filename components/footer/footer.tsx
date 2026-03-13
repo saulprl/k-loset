@@ -11,7 +11,7 @@ import { Logo } from "../logo/logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
+    <footer className="text-whitelack bg-black">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <Logo className="text-white" />

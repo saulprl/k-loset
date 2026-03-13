@@ -1,6 +1,9 @@
-import { cn } from "@/lib/utils"
-import { SVGProps } from "react"
-export const MastercardIcon = ({className, ...props}: SVGProps<SVGSVGElement>) => (
+import { cn } from "@/lib/utils";
+import { SVGProps } from "react";
+export const MastercardIcon = ({
+  className,
+  ...props
+}: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 39 28"
@@ -10,13 +13,12 @@ export const MastercardIcon = ({className, ...props}: SVGProps<SVGSVGElement>) =
   >
     <path fill="#000" d="M23.52 6.662h-8.061v14.676h8.06V6.662Z" />
     <path
-      fill="#fff"
+      fill="#000"
       d="M15.97 14a9.418 9.418 0 0 1 .925-4.08 9.294 9.294 0 0 1 2.594-3.258A9.108 9.108 0 0 0 9.77 5.605a9.255 9.255 0 0 0-3.782 3.443A9.424 9.424 0 0 0 4.584 14c0 1.751.487 3.467 1.404 4.952a9.255 9.255 0 0 0 3.782 3.443 9.108 9.108 0 0 0 9.72-1.057 9.296 9.296 0 0 1-2.595-3.258 9.42 9.42 0 0 1-.924-4.08Z"
     />
     <path
-      fill="#fff"
+      fill="#000"
       d="M34.394 14a9.424 9.424 0 0 1-1.403 4.952 9.254 9.254 0 0 1-3.783 3.443 9.107 9.107 0 0 1-9.719-1.057 9.311 9.311 0 0 0 2.593-3.259 9.436 9.436 0 0 0 0-8.158 9.311 9.311 0 0 0-2.593-3.259 9.107 9.107 0 0 1 9.719-1.057 9.254 9.254 0 0 1 3.783 3.443A9.424 9.424 0 0 1 34.394 14ZM33.515 19.784v-.301h.12v-.061h-.305v.061h.12v.3h.065Zm.591 0v-.363h-.093l-.107.25-.108-.25h-.093v.363h.066v-.274l.1.236h.069l.1-.236v.273h.066Z"
     />
   </svg>
-)
-
+);
