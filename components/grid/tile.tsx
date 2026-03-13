@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Label from "../label";
 
@@ -31,6 +32,9 @@ export function GridTileImage({
         {props.src ? (
           <Image className="h-full w-full object-cover" {...props} />
         ) : null}
+        <div className="absolute right-3 bottom-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md transition-all duration-200 hover:scale-110 dark:bg-neutral-900">
+          <ShoppingBag className="h-4 w-4 text-neutral-700 dark:text-neutral-300" />
+        </div>
       </div>
       {label ? (
         <Label

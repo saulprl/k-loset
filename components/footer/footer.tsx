@@ -11,10 +11,10 @@ import { Logo } from "../logo/logo";
 
 export default function Footer() {
   return (
-    <footer className="text-whitelack bg-black">
+    <footer className="bg-gray-100 text-gray-800">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
-          <Logo className="text-white" />
+          <Logo className="font-bold text-black" />
         </div>
 
         {/* Main Footer Content */}
@@ -25,7 +25,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/inventory"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Inventory
                 </Link>
@@ -33,7 +33,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/quality"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Quality
                 </Link>
@@ -48,7 +48,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/privacy-policy"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Privacy Policy
                 </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shipping"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Shipping
                 </Link>
@@ -71,7 +71,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/my-account"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   My account
                 </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/track-order"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Track my order
                 </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/faq"
-                  className="text-sm text-gray-300 transition-colors hover:text-white"
+                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
                 >
                   FAQ
                 </Link>
@@ -103,7 +103,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-colors hover:text-gray-300"
+                className="text-gray-800 transition-colors hover:text-black"
               >
                 <InstagramIcon className="h-5 w-5" />
               </Link>
@@ -111,7 +111,7 @@ export default function Footer() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-colors hover:text-gray-300"
+                className="text-gray-800 transition-colors hover:text-black"
               >
                 <FacebookIcon className="h-5 w-5" />
               </Link>
@@ -119,7 +119,7 @@ export default function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-colors hover:text-gray-300"
+                className="text-gray-800 transition-colors hover:text-black"
               >
                 <TwitterIcon className="h-5 w-5" />
               </Link>
@@ -127,7 +127,7 @@ export default function Footer() {
                 href="https://pinterest.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-colors hover:text-gray-300"
+                className="text-gray-800 transition-colors hover:text-black"
               >
                 <PinterestIcon className="h-5 w-5" />
               </Link>
@@ -140,7 +140,7 @@ export default function Footer() {
           <h3 className="mb-2 text-base font-normal">Contact Us</h3>
           <a
             href="mailto:kyobokglob@gmail.com "
-            className="text-sm text-gray-300 transition-colors hover:text-white"
+            className="text-sm text-gray-600 transition-colors hover:text-gray-900"
           >
             kyobokglob@gmail.com
           </a>
@@ -169,7 +169,7 @@ export default function Footer() {
         */}
 
         {/* Payment Methods */}
-        <div className="mb-8 flex items-center justify-end gap-4">
+        <div className="mb-8 flex items-center justify-end gap-4 text-gray-800">
           <ApplePayIcon className="h-4" />
           <AmexIcon className="h-4" />
           <VisaIcon className="h-4" />
@@ -177,8 +177,8 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-neutral-800 pt-8">
-          <p className="text-sm text-gray-400">
+        <div className="border-t border-gray-300 pt-8">
+          <p className="text-sm text-gray-500">
             © 2025 K-YOBOK. All rights reserved.
           </p>
         </div>
