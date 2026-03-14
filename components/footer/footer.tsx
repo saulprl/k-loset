@@ -12,20 +12,20 @@ import { Logo } from "../logo/logo";
 export default function Footer() {
   return (
     <footer className="bg-gray-100 text-gray-800">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
           <Logo className="font-bold text-black" />
         </div>
 
         {/* Main Footer Content */}
-        <div className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <h3 className="mb-4 text-base font-normal">Products</h3>
-            <ul className="space-y-3">
+            <h3 className="mb-3 text-sm font-normal">Products</h3>
+            <ul className="space-y-2.5">
               <li>
                 <Link
                   href="/inventory"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Inventory
                 </Link>
@@ -33,7 +33,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/quality"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Quality
                 </Link>
@@ -43,12 +43,12 @@ export default function Footer() {
 
           {/* About Us Section */}
           <div>
-            <h3 className="mb-4 text-base font-normal">About Us</h3>
-            <ul className="space-y-3">
+            <h3 className="mb-3 text-sm font-normal">About Us</h3>
+            <ul className="space-y-2.5">
               <li>
                 <Link
                   href="/privacy-policy"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Privacy Policy
                 </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/shipping"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Shipping
                 </Link>
@@ -66,12 +66,12 @@ export default function Footer() {
 
           {/* More Section */}
           <div>
-            <h3 className="mb-4 text-base font-normal">More</h3>
-            <ul className="space-y-3">
+            <h3 className="mb-3 text-sm font-normal">More</h3>
+            <ul className="space-y-2.5">
               <li>
                 <Link
                   href="/my-account"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   My account
                 </Link>
@@ -79,7 +79,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/track-order"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   Track my order
                 </Link>
@@ -87,7 +87,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/faq"
-                  className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                  className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
                 >
                   FAQ
                 </Link>
@@ -97,15 +97,15 @@ export default function Footer() {
 
           {/* Follow Us Section */}
           <div>
-            <h3 className="mb-4 text-base font-normal">Follow Us</h3>
-            <div className="flex items-center gap-4">
+            <h3 className="mb-3 text-sm font-normal">Follow Us</h3>
+            <div className="flex items-center gap-3">
               <Link
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-800 transition-colors hover:text-black"
               >
-                <InstagramIcon className="h-5 w-5" />
+                <InstagramIcon className="h-4 w-4" />
               </Link>
               <Link
                 href="https://facebook.com"
@@ -113,7 +113,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-gray-800 transition-colors hover:text-black"
               >
-                <FacebookIcon className="h-5 w-5" />
+                <FacebookIcon className="h-4 w-4" />
               </Link>
               <Link
                 href="https://twitter.com"
@@ -121,7 +121,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-gray-800 transition-colors hover:text-black"
               >
-                <TwitterIcon className="h-5 w-5" />
+                <TwitterIcon className="h-4 w-4" />
               </Link>
               <Link
                 href="https://pinterest.com"
@@ -129,18 +129,18 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-gray-800 transition-colors hover:text-black"
               >
-                <PinterestIcon className="h-5 w-5" />
+                <PinterestIcon className="h-4 w-4" />
               </Link>
             </div>
           </div>
         </div>
 
         {/* Contact Us Section */}
-        <div className="mb-8">
-          <h3 className="mb-2 text-base font-normal">Contact Us</h3>
+        <div className="mb-6">
+          <h3 className="mb-2 text-sm font-normal">Contact Us</h3>
           <a
             href="mailto:kyobokglob@gmail.com "
-            className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+            className="text-[13px] text-gray-600 transition-colors hover:text-gray-900"
           >
             kyobokglob@gmail.com
           </a>
@@ -169,16 +169,16 @@ export default function Footer() {
         */}
 
         {/* Payment Methods */}
-        <div className="mb-8 flex items-center justify-end gap-4 text-gray-800">
-          <ApplePayIcon className="h-4" />
-          <AmexIcon className="h-4" />
-          <VisaIcon className="h-4" />
-          <MastercardIcon className="h-4" />
+        <div className="mb-6 flex items-center justify-end gap-3 text-gray-800">
+          <ApplePayIcon className="h-3.5" />
+          <AmexIcon className="h-3.5" />
+          <VisaIcon className="h-3.5" />
+          <MastercardIcon className="h-3.5" />
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-gray-300 pt-8">
-          <p className="text-sm text-gray-500">
+        <div className="border-t border-gray-300 pt-6">
+          <p className="text-xs text-gray-500">
             © 2025 K-YOBOK. All rights reserved.
           </p>
         </div>
