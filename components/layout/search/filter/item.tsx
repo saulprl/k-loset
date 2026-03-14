@@ -21,10 +21,10 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
       <DynamicTag
         href={createUrl(item.path, newParams)}
         className={clsx(
-          "w-full rounded-md px-1 py-1 text-[17px] leading-snug transition-colors hover:text-neutral-700 dark:hover:text-neutral-100",
+          "w-full rounded-md px-1 py-0.5 text-[13px] leading-snug transition-colors hover:text-neutral-700 dark:hover:text-neutral-100",
           {
             "font-semibold underline underline-offset-4": active,
-            "font-medium": !active,
+            "font-normal": !active,
           },
         )}
       >
@@ -54,10 +54,10 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
         prefetch={!active ? false : undefined}
         href={href}
         className={clsx(
-          "w-full rounded-md px-1 py-1 text-[17px] leading-snug transition-colors hover:text-neutral-700 dark:hover:text-neutral-100",
+          "w-full rounded-md px-1 py-0.5 text-[13px] leading-snug transition-colors hover:text-neutral-700 dark:hover:text-neutral-100",
           {
             "font-semibold underline underline-offset-4": active,
-            "font-medium": !active,
+            "font-normal": !active,
           },
         )}
       >

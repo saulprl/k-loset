@@ -3,31 +3,33 @@
 import CartModal from "@/components/cart/modal";
 import { Logo } from "@/components/logo/logo";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
-    NavigationMenu,
-    NavigationMenuItem,
-    NavigationMenuLink,
-    NavigationMenuList,
-    NavigationMenuTrigger,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarGroup,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarTrigger,
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Menu } from "@/lib/shopify/types";
+import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 interface Props {
@@ -36,6 +38,23 @@ interface Props {
 
 export const Navbar = ({ menu }: Props) => {
   const [menuIndex, setMenuIndex] = useState<number | null>(null);
+  const pathname = usePathname();
+
+  const pathMatches = (path: string) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
+
+  const activePath = menu
+    .flatMap((item) => [
+      item.path,
+      ...item.children.map((subItem) => subItem.path),
+    ])
+    .filter((path) => pathMatches(path))
+    .sort((a, b) => b.length - a.length)[0];
 
   const dropdownContent =
     menuIndex !== null
@@ -63,12 +82,24 @@ export const Navbar = ({ menu }: Props) => {
         <NavigationMenu>
           <NavigationMenuList className="flex w-full items-center justify-center gap-2 max-lg:hidden lg:gap-8">
             {menu.map((item, index) => {
+              const isItemActive =
+                activePath === item.path ||
+                item.children.some((subItem) => activePath === subItem.path);
+
               if (item.children.length > 0) {
                 return (
                   <NavigationMenuItem key={`navbar-item-${item.title}`}>
                     <NavigationMenuTrigger
                       onMouseEnter={() => setMenuIndex(index)}
-                      className="text-2xl font-medium lg:text-xl"
+                      className={clsx(
+                        "h-auto rounded-none bg-transparent px-0 py-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent lg:text-xl",
+                        {
+                          "font-bold text-stone-900 data-[state=open]:text-stone-900":
+                            isItemActive,
+                          "font-medium text-neutral-700 hover:text-stone-800 data-[state=open]:text-stone-800":
+                            !isItemActive,
+                        },
+                      )}
                     >
                       {item.title}
                     </NavigationMenuTrigger>
@@ -81,7 +112,14 @@ export const Navbar = ({ menu }: Props) => {
                   <NavigationMenuLink asChild>
                     <Link
                       href={item.path}
-                      className="text-2xl font-medium lg:text-xl"
+                      className={clsx(
+                        "rounded-none p-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 lg:text-xl",
+                        {
+                          "font-bold text-stone-900": isItemActive,
+                          "font-medium text-neutral-700 hover:text-stone-800":
+                            !isItemActive,
+                        },
+                      )}
                     >
                       {item.title}
                     </Link>
