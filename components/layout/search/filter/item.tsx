@@ -1,30 +1,31 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import type { SortFilterItem } from 'lib/constants';
-import { createUrl } from 'lib/utils';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-import type { ListItem, PathFilterItem } from '.';
+import clsx from "clsx";
+import type { SortFilterItem } from "lib/constants";
+import { createUrl } from "lib/utils";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
+import type { ListItem, PathFilterItem } from ".";
 
 function PathFilterItem({ item }: { item: PathFilterItem }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const active = pathname === item.path;
   const newParams = new URLSearchParams(searchParams.toString());
-  const DynamicTag = active ? 'p' : Link;
+  const DynamicTag = active ? "p" : Link;
 
-  newParams.delete('q');
+  newParams.delete("q");
 
   return (
-    <li className="mt-2 flex text-black dark:text-white" key={item.title}>
+    <li className="flex text-black dark:text-white" key={item.title}>
       <DynamicTag
         href={createUrl(item.path, newParams)}
         className={clsx(
-          'w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
+          "w-full rounded-md px-1 py-1 text-[17px] leading-snug transition-colors hover:text-neutral-700 dark:hover:text-neutral-100",
           {
-            'underline underline-offset-4': active
-          }
+            "font-semibold underline underline-offset-4": active,
+            "font-medium": !active,
+          },
         )}
       >
         {item.title}
@@ -36,25 +37,29 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
 function SortFilterItem({ item }: { item: SortFilterItem }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const active = searchParams.get('sort') === item.slug;
-  const q = searchParams.get('q');
+  const active = searchParams.get("sort") === item.slug;
+  const q = searchParams.get("q");
   const href = createUrl(
     pathname,
     new URLSearchParams({
       ...(q && { q }),
-      ...(item.slug && item.slug.length && { sort: item.slug })
-    })
+      ...(item.slug && item.slug.length && { sort: item.slug }),
+    }),
   );
-  const DynamicTag = active ? 'p' : Link;
+  const DynamicTag = active ? "p" : Link;
 
   return (
-    <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
+    <li className="flex text-black dark:text-white" key={item.title}>
       <DynamicTag
         prefetch={!active ? false : undefined}
         href={href}
-        className={clsx('w-full hover:underline hover:underline-offset-4', {
-          'underline underline-offset-4': active
-        })}
+        className={clsx(
+          "w-full rounded-md px-1 py-1 text-[17px] leading-snug transition-colors hover:text-neutral-700 dark:hover:text-neutral-100",
+          {
+            "font-semibold underline underline-offset-4": active,
+            "font-medium": !active,
+          },
+        )}
       >
         {item.title}
       </DynamicTag>
@@ -63,5 +68,9 @@ function SortFilterItem({ item }: { item: SortFilterItem }) {
 }
 
 export function FilterItem({ item }: { item: ListItem }) {
-  return 'path' in item ? <PathFilterItem item={item} /> : <SortFilterItem item={item} />;
+  return "path" in item ? (
+    <PathFilterItem item={item} />
+  ) : (
+    <SortFilterItem item={item} />
+  );
 }
