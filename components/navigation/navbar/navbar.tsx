@@ -30,7 +30,7 @@ import clsx from "clsx";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 interface Props {
   menu: Menu[];
@@ -86,45 +86,59 @@ export const Navbar = ({ menu }: Props) => {
                 activePath === item.path ||
                 item.children.some((subItem) => activePath === subItem.path);
 
+              const separator =
+                index < menu.length - 1 ? (
+                  <span
+                    aria-hidden="true"
+                    className="mx-2 h-5 w-px bg-neutral-300/70 lg:mx-3"
+                  />
+                ) : null;
+
               if (item.children.length > 0) {
                 return (
-                  <NavigationMenuItem key={`navbar-item-${item.title}`}>
-                    <NavigationMenuTrigger
-                      onMouseEnter={() => setMenuIndex(index)}
-                      className={clsx(
-                        "h-auto rounded-none bg-transparent px-0 py-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent lg:text-xl",
-                        {
-                          "font-bold text-stone-900 data-[state=open]:text-stone-900":
-                            isItemActive,
-                          "font-medium text-neutral-700 hover:text-stone-800 data-[state=open]:text-stone-800":
-                            !isItemActive,
-                        },
-                      )}
-                    >
-                      {item.title}
-                    </NavigationMenuTrigger>
-                  </NavigationMenuItem>
+                  <Fragment key={`navbar-item-${item.title}`}>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger
+                        onMouseEnter={() => setMenuIndex(index)}
+                        className={clsx(
+                          "h-auto rounded-none bg-transparent px-0 py-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent lg:text-xl",
+                          {
+                            "font-bold text-stone-900 data-[state=open]:text-stone-900":
+                              isItemActive,
+                            "font-medium text-neutral-700 hover:text-stone-800 data-[state=open]:text-stone-800":
+                              !isItemActive,
+                          },
+                        )}
+                      >
+                        {item.title}
+                      </NavigationMenuTrigger>
+                    </NavigationMenuItem>
+                    {separator}
+                  </Fragment>
                 );
               }
 
               return (
-                <NavigationMenuItem key={`navbar-item-${item.title}`}>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href={item.path}
-                      className={clsx(
-                        "rounded-none p-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 lg:text-xl",
-                        {
-                          "font-bold text-stone-900": isItemActive,
-                          "font-medium text-neutral-700 hover:text-stone-800":
-                            !isItemActive,
-                        },
-                      )}
-                    >
-                      {item.title}
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
+                <Fragment key={`navbar-item-${item.title}`}>
+                  <NavigationMenuItem>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href={item.path}
+                        className={clsx(
+                          "rounded-none p-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 lg:text-xl",
+                          {
+                            "font-bold text-stone-900": isItemActive,
+                            "font-medium text-neutral-700 hover:text-stone-800":
+                              !isItemActive,
+                          },
+                        )}
+                      >
+                        {item.title}
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  {separator}
+                </Fragment>
               );
             })}
           </NavigationMenuList>
@@ -149,35 +163,55 @@ export const Navbar = ({ menu }: Props) => {
               <SidebarTrigger />
             </NavigationMenuItem>
             <Sidebar side="right" className="lg:hidden" collapsible="offcanvas">
-              <SidebarHeader>
+              <SidebarHeader className="border-b border-neutral-200/80 px-5 pt-6 pb-3">
                 <Logo as="span" />
               </SidebarHeader>
-              <SidebarContent>
-                <SidebarMenu>
+              <SidebarContent className="px-4 py-3">
+                <SidebarMenu className="divide-y divide-neutral-200">
                   {menu.map((item) => {
+                    const isItemActive =
+                      activePath === item.path ||
+                      item.children.some(
+                        (subItem) => activePath === subItem.path,
+                      );
+
                     if (item.children.length > 0) {
                       return (
                         <Collapsible
                           className={`group/${item.title.toLowerCase()}`}
                           key={`sidebar-item-${item.title}`}
                         >
-                          <SidebarGroup>
+                          <SidebarGroup className="px-0 py-1.5">
                             <SidebarGroupLabel
-                              className="text-2xl font-medium text-neutral-100"
+                              className={clsx(
+                                "h-auto px-0 text-xl tracking-tight",
+                                {
+                                  "text-neutral-900": isItemActive,
+                                  "text-neutral-800": !isItemActive,
+                                },
+                              )}
                               asChild
                             >
-                              <CollapsibleTrigger>
-                                {item.title}{" "}
+                              <CollapsibleTrigger className="flex w-full items-center rounded-md px-3 py-2.5 font-semibold transition-colors hover:bg-neutral-50">
+                                {item.title}
                                 <ChevronDown
-                                  className={`ml-auto transition-transform group-data-[state=open]/${item.title.toLowerCase()}:rotate-180`}
+                                  className={`ml-auto size-4 text-neutral-500 transition-transform group-data-[state=open]/${item.title.toLowerCase()}:rotate-180`}
                                 />
                               </CollapsibleTrigger>
                             </SidebarGroupLabel>
-                            <CollapsibleContent>
+                            <CollapsibleContent className="mt-1 border-l border-neutral-200 pl-2">
                               {item.children.map((subItem) => (
                                 <SidebarMenuItem key={subItem.title}>
                                   <SidebarMenuButton
-                                    className="text-xl font-light"
+                                    className={clsx(
+                                      "h-auto rounded-md px-3 py-2 text-base tracking-tight",
+                                      {
+                                        "font-semibold text-neutral-900":
+                                          activePath === subItem.path,
+                                        "font-normal text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900":
+                                          activePath !== subItem.path,
+                                      },
+                                    )}
                                     asChild
                                   >
                                     <Link href={subItem.path}>
@@ -195,10 +229,17 @@ export const Navbar = ({ menu }: Props) => {
                     return (
                       <SidebarMenuItem
                         key={`sidebar-item-${item.title}`}
-                        className="px-2"
+                        className="px-0 py-1.5"
                       >
                         <SidebarMenuButton
-                          className="text-2xl font-medium text-neutral-100"
+                          className={clsx(
+                            "h-auto rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight",
+                            {
+                              "bg-neutral-100 text-neutral-900": isItemActive,
+                              "text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900":
+                                !isItemActive,
+                            },
+                          )}
                           asChild
                         >
                           <Link href={item.path}>{item.title}</Link>

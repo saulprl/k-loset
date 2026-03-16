@@ -272,17 +272,22 @@ export async function getCart(): Promise<Cart | undefined> {
     return undefined;
   }
 
-  const res = await shopifyFetch<ShopifyCartOperation>({
-    query: getCartQuery,
-    variables: { cartId },
-  });
+  try {
+    const res = await shopifyFetch<ShopifyCartOperation>({
+      query: getCartQuery,
+      variables: { cartId },
+    });
 
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
+    // Old carts becomes `null` when you checkout.
+    if (!res.body.data.cart) {
+      return undefined;
+    }
+
+    return reshapeCart(res.body.data.cart);
+  } catch (error) {
+    console.error("getCart failed:", error);
     return undefined;
   }
-
-  return reshapeCart(res.body.data.cart);
 }
 
 export async function getCollection(
@@ -307,7 +312,14 @@ export async function getFeaturedCollections(): Promise<Collection[]> {
   // cacheTag(TAGS.collections);
   // cacheLife("days");
 
-  const collections = await getCollections();
+  let collections: Collection[] = [];
+
+  try {
+    collections = await getCollections();
+  } catch (error) {
+    console.error("getFeaturedCollections failed:", error);
+    return [];
+  }
 
   const featuredCollections = collections.filter(
     (collection) => collection.featured?.value === "true",
@@ -353,10 +365,17 @@ export async function getCollections(): Promise<Collection[]> {
   // cacheTag(TAGS.collections);
   // cacheLife("days");
 
-  const res = await shopifyFetch<ShopifyCollectionsOperation>({
-    query: getCollectionsQuery,
-  });
-  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+  let shopifyCollections: ShopifyCollection[] = [];
+
+  try {
+    const res = await shopifyFetch<ShopifyCollectionsOperation>({
+      query: getCollectionsQuery,
+    });
+    shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+  } catch (error) {
+    console.error("getCollections failed:", error);
+  }
+
   const collections: Collection[] = [
     {
       id: "all",
@@ -389,12 +408,17 @@ export async function getLatestCollections(): Promise<Collection[]> {
   // cacheTag(TAGS.collections);
   // cacheLife("days");
 
-  const res = await shopifyFetch<ShopifyCollectionsOperation>({
-    query: getLatestCollectionsQuery,
-  });
-  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+  try {
+    const res = await shopifyFetch<ShopifyCollectionsOperation>({
+      query: getLatestCollectionsQuery,
+    });
+    const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
 
-  return reshapeCollections(shopifyCollections);
+    return reshapeCollections(shopifyCollections);
+  } catch (error) {
+    console.error("getLatestCollections failed:", error);
+    return [];
+  }
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
@@ -402,46 +426,56 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   // cacheTag(TAGS.collections);
   // cacheLife('days');
 
-  const res = await shopifyFetch<ShopifyMenuOperation>({
-    query: getMenuQuery,
-    variables: {
-      handle,
-    },
-  });
+  try {
+    const res = await shopifyFetch<ShopifyMenuOperation>({
+      query: getMenuQuery,
+      variables: {
+        handle,
+      },
+    });
 
-  return (
-    res.body?.data?.menu?.items.map(
-      (item: {
-        title: string;
-        url: string;
-        items?: { title: string; url: string }[];
-      }) => ({
-        title: item.title,
-        path: item.url
-          .replace(domain, "")
-          .replace("/collections", "/search")
-          .replace("/pages", ""),
-        children: item.items
-          ? item.items.map((subItem) => ({
-              title: subItem.title,
-              path: subItem.url
-                .replace(domain, "")
-                .replace("/collections", "/search")
-                .replace("/pages", ""),
-            }))
-          : [],
-      }),
-    ) || []
-  );
+    return (
+      res.body?.data?.menu?.items.map(
+        (item: {
+          title: string;
+          url: string;
+          items?: { title: string; url: string }[];
+        }) => ({
+          title: item.title,
+          path: item.url
+            .replace(domain, "")
+            .replace("/collections", "/search")
+            .replace("/pages", ""),
+          children: item.items
+            ? item.items.map((subItem) => ({
+                title: subItem.title,
+                path: subItem.url
+                  .replace(domain, "")
+                  .replace("/collections", "/search")
+                  .replace("/pages", ""),
+              }))
+            : [],
+        }),
+      ) || []
+    );
+  } catch (error) {
+    console.error(`getMenu failed for handle \"${handle}\":`, error);
+    return [];
+  }
 }
 
-export async function getPage(handle: string): Promise<Page> {
-  const res = await shopifyFetch<ShopifyPageOperation>({
-    query: getPageQuery,
-    variables: { handle },
-  });
+export async function getPage(handle: string): Promise<Page | undefined> {
+  try {
+    const res = await shopifyFetch<ShopifyPageOperation>({
+      query: getPageQuery,
+      variables: { handle },
+    });
 
-  return res.body.data.pageByHandle;
+    return res.body.data.pageByHandle;
+  } catch (error) {
+    console.error(`getPage failed for handle \"${handle}\":`, error);
+    return undefined;
+  }
 }
 
 export async function getPages(): Promise<Page[]> {
@@ -514,13 +548,18 @@ export async function getLatestProducts(): Promise<Product[]> {
   // cacheTag(TAGS.products);
   // cacheLife("days");
 
-  const latestProducts = await shopifyFetch<ShopifyProductsOperation>({
-    query: getLatestProductsQuery,
-  });
+  try {
+    const latestProducts = await shopifyFetch<ShopifyProductsOperation>({
+      query: getLatestProductsQuery,
+    });
 
-  return reshapeProducts(
-    removeEdgesAndNodes(latestProducts.body.data.products),
-  );
+    return reshapeProducts(
+      removeEdgesAndNodes(latestProducts.body.data.products),
+    );
+  } catch (error) {
+    console.error("getLatestProducts failed:", error);
+    return [];
+  }
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

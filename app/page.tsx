@@ -21,11 +21,19 @@ export default async function HomePage() {
   const latestCollections = await getLatestCollections();
   const latestProducts = await getLatestProducts();
 
-  const heroCollection = featuredCollections[0]!;
+  const heroCollection = featuredCollections[0];
 
   return (
     <>
-      <Hero collection={heroCollection} />
+      {heroCollection ? (
+        <Hero collection={heroCollection} />
+      ) : (
+        <section className="flex w-full items-center justify-center px-5 py-16 text-center">
+          <p className="text-text-foreground font-serif text-2xl">
+            New collections are coming soon.
+          </p>
+        </section>
+      )}
       <NewCollectionArrivals collections={latestCollections} />
       <NewProductArrivals products={latestProducts} />
       <section className="w-full p-0">
