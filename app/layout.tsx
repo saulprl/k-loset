@@ -63,6 +63,9 @@ export default async function RootLayout({
       suppressHydrationWarning
       className={`${GeistSans.variable} ${jost.variable} ${libreCaslon.variable} antialiased`}
     >
+      <head>
+        <meta name="darkreader-lock" />
+      </head>
       <body
         suppressHydrationWarning
         className="bg-white text-black selection:bg-neutral-50"

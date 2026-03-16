@@ -256,3 +256,35 @@ button {
     transform: translateX(-100%);
   }
 }
+
+/* Keep mobile nav menu in a light palette, regardless of dark mode/extensions. */
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"] {
+  color-scheme: light !important;
+  background-color: #ffffff !important;
+  color: #171717 !important;
+}
+
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"]
+  [data-sidebar="menu-button"],
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"]
+  [data-sidebar="group-label"]
+  > button,
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"] a {
+  background-color: transparent !important;
+  color: #262626 !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"]
+  [data-sidebar="menu-button"]:is(:hover, :focus, :focus-visible, :active),
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"]
+  [data-sidebar="menu-button"][data-active="true"],
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"]
+  [data-sidebar="group-label"]
+  > button:is(:hover, :focus, :focus-visible, :active),
+.forced-light-mobile-menu[data-sidebar="sidebar"][data-mobile="true"]
+  [data-sidebar="group-label"]
+  > button[data-state="open"] {
+  background-color: #f5f5f5 !important;
+  color: #171717 !important;
+}

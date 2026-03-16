@@ -162,11 +162,15 @@ export const Navbar = ({ menu }: Props) => {
             <NavigationMenuItem asChild className="lg:hidden">
               <SidebarTrigger />
             </NavigationMenuItem>
-            <Sidebar side="right" className="lg:hidden" collapsible="offcanvas">
+            <Sidebar
+              side="right"
+              className="forced-light-mobile-menu lg:hidden"
+              collapsible="offcanvas"
+            >
               <SidebarHeader className="border-b border-neutral-200/80 px-5 pt-6 pb-3">
                 <Logo as="span" />
               </SidebarHeader>
-              <SidebarContent className="px-4 py-3">
+              <SidebarContent data-darkreader-ignore className="px-4 py-3">
                 <SidebarMenu className="divide-y divide-neutral-200">
                   {menu.map((item) => {
                     const isItemActive =
@@ -192,7 +196,7 @@ export const Navbar = ({ menu }: Props) => {
                               )}
                               asChild
                             >
-                              <CollapsibleTrigger className="flex w-full items-center rounded-md px-3 py-2.5 font-semibold transition-colors hover:bg-neutral-50">
+                              <CollapsibleTrigger className="flex w-full items-center rounded-md px-3 py-2.5 font-semibold text-neutral-800 transition-colors [-webkit-tap-highlight-color:transparent] hover:bg-neutral-50 focus-visible:outline-none active:bg-neutral-100 data-[state=open]:bg-neutral-100 data-[state=open]:text-neutral-900">
                                 {item.title}
                                 <ChevronDown
                                   className={`ml-auto size-4 text-neutral-500 transition-transform group-data-[state=open]/${item.title.toLowerCase()}:rotate-180`}
@@ -204,7 +208,7 @@ export const Navbar = ({ menu }: Props) => {
                                 <SidebarMenuItem key={subItem.title}>
                                   <SidebarMenuButton
                                     className={clsx(
-                                      "h-auto rounded-md px-3 py-2 text-base tracking-tight",
+                                      "!active:bg-neutral-100 !active:text-neutral-900 h-auto rounded-md px-3 py-2 text-base tracking-tight [-webkit-tap-highlight-color:transparent] focus-visible:outline-none",
                                       {
                                         "font-semibold text-neutral-900":
                                           activePath === subItem.path,
@@ -233,7 +237,7 @@ export const Navbar = ({ menu }: Props) => {
                       >
                         <SidebarMenuButton
                           className={clsx(
-                            "h-auto rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight",
+                            "!active:bg-neutral-100 !active:text-neutral-900 h-auto rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight [-webkit-tap-highlight-color:transparent] focus-visible:outline-none",
                             {
                               "bg-neutral-100 text-neutral-900": isItemActive,
                               "text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900":
