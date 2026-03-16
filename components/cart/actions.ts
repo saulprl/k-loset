@@ -2,11 +2,11 @@
 
 import { TAGS } from "lib/constants";
 import {
-  addToCart,
-  createCart,
-  getCart,
-  removeFromCart,
-  updateCart,
+    addToCart,
+    createCart,
+    getCart,
+    removeFromCart,
+    updateCart,
 } from "lib/shopify";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -31,8 +31,14 @@ export async function addItem(
       cookieStore.set("cartId", cartId!);
     }
 
-    await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
-    revalidateTag(TAGS.cart, "max");
+    if (!cartId) {
+      return "Error adding item to cart";
+    }
+
+    await addToCart(cartId, [
+      { merchandiseId: selectedVariantId, quantity: 1 },
+    ]);
+    revalidateTag(TAGS.cart);
   } catch (e) {
     console.error("Error adding item to cart:", e);
     return "Error adding item to cart";
@@ -53,7 +59,7 @@ export async function removeItem(prevState: any, merchandiseId: string) {
 
     if (lineItem && lineItem.id) {
       await removeFromCart([lineItem.id]);
-      revalidateTag(TAGS.cart, "max");
+      revalidateTag(TAGS.cart);
     } else {
       return "Item not found in cart";
     }
@@ -96,10 +102,10 @@ export async function updateItemQuantity(
       }
     } else if (quantity > 0) {
       // If the item doesn't exist in the cart and quantity > 0, add it
-      await addToCart([{ merchandiseId, quantity }]);
+      await addToCart(cart.id!, [{ merchandiseId, quantity }]);
     }
 
-    revalidateTag(TAGS.cart, "max");
+    revalidateTag(TAGS.cart);
   } catch (e) {
     console.error(e);
     return "Error updating item quantity";

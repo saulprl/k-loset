@@ -1,63 +1,63 @@
 import {
-  HIDDEN_PRODUCT_TAG,
-  SHOPIFY_GRAPHQL_API_ENDPOINT,
-  TAGS,
+    HIDDEN_PRODUCT_TAG,
+    SHOPIFY_GRAPHQL_API_ENDPOINT,
+    TAGS,
 } from "lib/constants";
 import { isShopifyError } from "lib/type-guards";
 import { ensureStartsWith } from "lib/utils";
 import {
-  unstable_cacheLife as cacheLife,
-  unstable_cacheTag as cacheTag,
-  revalidateTag,
+    unstable_cacheLife as cacheLife,
+    unstable_cacheTag as cacheTag,
+    revalidateTag,
 } from "next/cache";
 import { cookies, headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import {
-  addToCartMutation,
-  createCartMutation,
-  editCartItemsMutation,
-  removeFromCartMutation,
+    addToCartMutation,
+    createCartMutation,
+    editCartItemsMutation,
+    removeFromCartMutation,
 } from "./mutations/cart";
 import { getCartQuery } from "./queries/cart";
 import {
-  getCollectionProductsQuery,
-  getCollectionQuery,
-  getCollectionsQuery,
-  getLatestCollectionsQuery,
+    getCollectionProductsQuery,
+    getCollectionQuery,
+    getCollectionsQuery,
+    getLatestCollectionsQuery,
 } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
 import { getPageQuery, getPagesQuery } from "./queries/page";
 import {
-  getLatestProductsQuery,
-  getProductQuery,
-  getProductRecommendationsQuery,
-  getProductsQuery,
+    getLatestProductsQuery,
+    getProductQuery,
+    getProductRecommendationsQuery,
+    getProductsQuery,
 } from "./queries/product";
 import {
-  Cart,
-  Collection,
-  Connection,
-  Image,
-  Menu,
-  Page,
-  Product,
-  ShopifyAddToCartOperation,
-  ShopifyCart,
-  ShopifyCartOperation,
-  ShopifyCollection,
-  ShopifyCollectionOperation,
-  ShopifyCollectionProductsOperation,
-  ShopifyCollectionsOperation,
-  ShopifyCreateCartOperation,
-  ShopifyMenuOperation,
-  ShopifyPageOperation,
-  ShopifyPagesOperation,
-  ShopifyProduct,
-  ShopifyProductOperation,
-  ShopifyProductRecommendationsOperation,
-  ShopifyProductsOperation,
-  ShopifyRemoveFromCartOperation,
-  ShopifyUpdateCartOperation,
+    Cart,
+    Collection,
+    Connection,
+    Image,
+    Menu,
+    Page,
+    Product,
+    ShopifyAddToCartOperation,
+    ShopifyCart,
+    ShopifyCartOperation,
+    ShopifyCollection,
+    ShopifyCollectionOperation,
+    ShopifyCollectionProductsOperation,
+    ShopifyCollectionsOperation,
+    ShopifyCreateCartOperation,
+    ShopifyMenuOperation,
+    ShopifyPageOperation,
+    ShopifyPagesOperation,
+    ShopifyProduct,
+    ShopifyProductOperation,
+    ShopifyProductRecommendationsOperation,
+    ShopifyProductsOperation,
+    ShopifyRemoveFromCartOperation,
+    ShopifyUpdateCartOperation,
 } from "./types";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -80,6 +80,9 @@ export async function shopifyFetch<T>({
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     const result = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -91,7 +94,10 @@ export async function shopifyFetch<T>({
         ...(query && { query }),
         ...(variables && { variables }),
       }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     const body = await result.json();
 
@@ -224,9 +230,9 @@ export async function createCart(): Promise<Cart> {
 }
 
 export async function addToCart(
+  cartId: string,
   lines: { merchandiseId: string; quantity: number }[],
 ): Promise<Cart> {
-  const cartId = (await cookies()).get("cartId")?.value!;
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
@@ -592,11 +598,11 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   if (isCollectionUpdate) {
-    revalidateTag(TAGS.collections, "max");
+    revalidateTag(TAGS.collections);
   }
 
   if (isProductUpdate) {
-    revalidateTag(TAGS.products, "max");
+    revalidateTag(TAGS.products);
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });

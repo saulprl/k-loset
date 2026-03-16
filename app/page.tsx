@@ -3,9 +3,9 @@ import { NewCollectionArrivals } from "@/components/collections/new-collection-a
 import { Hero } from "@/components/hero/hero";
 import { NewProductArrivals } from "@/components/products/new-product-arrivals";
 import {
-  getFeaturedCollections,
-  getLatestCollections,
-  getLatestProducts,
+    getFeaturedCollections,
+    getLatestCollections,
+    getLatestProducts,
 } from "@/lib/shopify";
 
 // export const metadata: Metadata = {

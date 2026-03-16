@@ -60,9 +60,13 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${GeistSans.variable} ${jost.variable} ${libreCaslon.variable} antialiased`}
     >
-      <body className="bg-white text-black selection:bg-neutral-50">
+      <body
+        suppressHydrationWarning
+        className="bg-white text-black selection:bg-neutral-50"
+      >
         <CartProvider cartPromise={cart}>
           <SidebarProvider defaultOpen={false}>
             <TopMarqueeBanner />
