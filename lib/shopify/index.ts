@@ -66,9 +66,11 @@ const domain = process.env.SHOPIFY_STORE_DOMAIN
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
-type ExtractVariables<T> = T extends { variables: object }
-  ? T["variables"]
-  : never;
+type ExtractVariables<T> = T extends { variables: infer V }
+  ? V
+  : T extends { variables?: infer V }
+    ? V
+    : never;
 
 export async function shopifyFetch<T>({
   headers,

@@ -1,7 +1,7 @@
 import {
-  ChevronDownIcon,
-  HeartIcon,
-  TruckIcon,
+    ChevronDownIcon,
+    HeartIcon,
+    TruckIcon,
 } from "@heroicons/react/24/outline";
 import { AddToCart } from "components/cart/add-to-cart";
 import Price from "components/price";
@@ -41,7 +41,7 @@ export function ProductDescription({ product }: { product: Product }) {
 
       {/* Price */}
       <Price
-        className="mt-2 text-lg font-normal text-black dark:text-white"
+        className="mt-2 text-lg font-bold text-black dark:text-white"
         amount={product.priceRange.maxVariantPrice.amount}
         currencyCode={product.priceRange.maxVariantPrice.currencyCode}
       />
@@ -116,7 +116,7 @@ export function ProductDescription({ product }: { product: Product }) {
                   Recommendation
                 </p>
                 <p className="mt-1 font-medium text-neutral-800 dark:text-neutral-100">
-                  Size up if in between
+                  One size fits most
                 </p>
               </div>
             </div>
@@ -129,28 +129,16 @@ export function ProductDescription({ product }: { product: Product }) {
                 <div className="px-3 py-2">Length</div>
               </div>
               <div className="grid grid-cols-4 border-t border-neutral-200 text-sm dark:border-neutral-700">
-                <div className="px-3 py-2 font-medium">S</div>
-                <div className="px-3 py-2">64-68 cm</div>
-                <div className="px-3 py-2">88-92 cm</div>
-                <div className="px-3 py-2">39 cm</div>
-              </div>
-              <div className="grid grid-cols-4 border-t border-neutral-200 text-sm dark:border-neutral-700">
-                <div className="px-3 py-2 font-medium">M</div>
-                <div className="px-3 py-2">69-73 cm</div>
-                <div className="px-3 py-2">93-97 cm</div>
+                <div className="px-3 py-2 font-medium">One Size</div>
+                <div className="px-3 py-2">64-78 cm</div>
+                <div className="px-3 py-2">88-102 cm</div>
                 <div className="px-3 py-2">40 cm</div>
-              </div>
-              <div className="grid grid-cols-4 border-t border-neutral-200 text-sm dark:border-neutral-700">
-                <div className="px-3 py-2 font-medium">L</div>
-                <div className="px-3 py-2">74-78 cm</div>
-                <div className="px-3 py-2">98-102 cm</div>
-                <div className="px-3 py-2">41 cm</div>
               </div>
             </div>
 
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
-              Tip: measure your waist at the narrowest point and compare with
-              the table.
+              This style is one size. Measure your waist at the narrowest point
+              and compare with the range above for the best fit.
             </p>
           </div>
         </InfoPanel>
