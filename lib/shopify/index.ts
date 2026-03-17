@@ -79,51 +79,71 @@ export async function shopifyFetch<T>({
   query: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+  const maxAttempts = 2;
 
-    const result = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": key,
-        ...headers,
-      },
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables }),
-      }),
-      signal: controller.signal,
-    });
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    clearTimeout(timeoutId);
+    try {
+      const controller = new AbortController();
+      timeoutId = setTimeout(() => controller.abort(), 15000);
 
-    const body = await result.json();
+      const result = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": key,
+          ...headers,
+        },
+        body: JSON.stringify({
+          ...(query && { query }),
+          ...(variables && { variables }),
+        }),
+        signal: controller.signal,
+      });
 
-    if (body.errors) {
-      throw body.errors[0];
-    }
+      const body = await result.json();
 
-    return {
-      status: result.status,
-      body,
-    };
-  } catch (e) {
-    if (isShopifyError(e)) {
+      if (body.errors) {
+        throw body.errors[0];
+      }
+
+      return {
+        status: result.status,
+        body,
+      };
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      const isTimeoutLike = /aborted|timeout/i.test(message);
+
+      if (attempt < maxAttempts && isTimeoutLike) {
+        continue;
+      }
+
+      if (isShopifyError(e)) {
+        throw {
+          cause: e.cause?.toString() || "unknown",
+          status: e.status || 500,
+          message: e.message,
+          query,
+        };
+      }
+
       throw {
-        cause: e.cause?.toString() || "unknown",
-        status: e.status || 500,
-        message: e.message,
+        error: e,
         query,
       };
+    } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     }
-
-    throw {
-      error: e,
-      query,
-    };
   }
+
+  throw {
+    error: "Unable to reach Shopify API",
+    query,
+  };
 }
 
 const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
@@ -221,9 +241,12 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   return reshapedProducts;
 };
 
-export async function createCart(): Promise<Cart> {
+export async function createCart(
+  lineItems?: { merchandiseId: string; quantity: number }[],
+): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
+    variables: lineItems ? { lineItems } : undefined,
   });
 
   return reshapeCart(res.body.data.cartCreate.cart);

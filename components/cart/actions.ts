@@ -23,21 +23,24 @@ export async function addItem(
   try {
     const cookieStore = await cookies();
     let cartId = cookieStore.get("cartId")?.value;
+    const lineItem = { merchandiseId: selectedVariantId, quantity: 1 };
 
-    // If no cart exists, create one first
     if (!cartId) {
-      const cart = await createCart();
+      // Fast path: create cart with the product in a single request.
+      const cart = await createCart([lineItem]);
       cartId = cart.id;
       cookieStore.set("cartId", cartId!);
+    } else {
+      try {
+        await addToCart(cartId, [lineItem]);
+      } catch {
+        // Retry once with a fresh cart if the previous cart became invalid.
+        const freshCart = await createCart([lineItem]);
+        cartId = freshCart.id;
+        cookieStore.set("cartId", cartId!);
+      }
     }
 
-    if (!cartId) {
-      return "Error adding item to cart";
-    }
-
-    await addToCart(cartId, [
-      { merchandiseId: selectedVariantId, quantity: 1 },
-    ]);
     revalidateTag(TAGS.cart, "max");
   } catch (e) {
     console.error("Error adding item to cart:", e);

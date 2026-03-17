@@ -74,8 +74,11 @@ export function AddToCart({ product }: { product: Product }) {
   return (
     <form
       action={async () => {
-        addCartItem(finalVariant, product);
-        addItemAction();
+        if (finalVariant) {
+          addCartItem(finalVariant, product);
+        }
+
+        await addItemAction();
       }}
     >
       <SubmitButton
