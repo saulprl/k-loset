@@ -7,11 +7,16 @@ import Image from "next/image";
 export function Gallery({
   images,
 }: {
-  images: { src: string; altText: string }[];
+  images: { src: string; altText: string; width?: number; height?: number }[];
 }) {
   const { state, updateImage } = useProduct();
   const updateURL = useUpdateURL();
   const imageIndex = state.image ? parseInt(state.image) : 0;
+  const selectedImage = images[imageIndex];
+  const selectedImageAspectRatio =
+    selectedImage?.width && selectedImage?.height
+      ? `${selectedImage.width} / ${selectedImage.height}`
+      : "1 / 1";
 
   return (
     <form className="flex flex-col-reverse gap-4 md:flex-row">
@@ -53,14 +58,17 @@ export function Gallery({
       ) : null}
 
       {/* Main Image */}
-      <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-neutral-100 md:flex-1 dark:bg-neutral-900">
-        {images[imageIndex] && (
+      <div
+        className="relative w-full overflow-hidden rounded-lg bg-neutral-100 md:flex-1"
+        style={{ aspectRatio: selectedImageAspectRatio }}
+      >
+        {selectedImage && (
           <Image
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
-            alt={images[imageIndex]?.altText as string}
-            src={images[imageIndex]?.src as string}
+            alt={selectedImage.altText as string}
+            src={selectedImage.src as string}
             priority={true}
           />
         )}
