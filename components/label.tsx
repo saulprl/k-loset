@@ -12,12 +12,13 @@ const Label = ({
   position?: 'bottom' | 'center';
 }) => {
   return (
-    <div className="flex w-full flex-col gap-1.5">
-      <h3 className="line-clamp-2 text-sm font-medium leading-tight text-black dark:text-white">
+    <div className="flex w-full flex-col gap-0.5 sm:gap-1">
+      <h3 className="line-clamp-2 text-[10px] font-semibold leading-[1.2] text-black sm:text-xs dark:text-white">
         {title}
       </h3>
       <Price
-        className="text-sm font-semibold text-black dark:text-white"
+        className="text-[10px] font-normal leading-[1.2] text-black/95 sm:text-xs dark:text-white/95"
+        currencyCodeClassName="text-black/70 dark:text-white/70"
         amount={amount}
         currencyCode={currencyCode}
       />

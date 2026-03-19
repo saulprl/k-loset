@@ -22,7 +22,7 @@ export function GridTileImage({
     <div className="flex h-full w-full flex-col gap-3">
       <div
         className={clsx(
-          "group hover:border-neutral-70 relative aspect-[4/5] w-full overflow-hidden rounded-lg border bg-white sm:aspect-square dark:bg-black",
+          "group hover:border-neutral-70 relative aspect-[3/4] w-full overflow-hidden rounded-lg border bg-white sm:aspect-square dark:bg-black",
           {
             "border-neutral-70 border-2": active,
             "border-neutral-200 dark:border-neutral-800": !active,
