@@ -22,7 +22,7 @@ export function GridTileImage({
     <div className="flex h-full w-full flex-col gap-3">
       <div
         className={clsx(
-          "group hover:border-neutral-70 relative aspect-square w-full overflow-hidden rounded-lg border bg-white dark:bg-black",
+          "group hover:border-neutral-70 relative aspect-[4/5] w-full overflow-hidden rounded-lg border bg-white sm:aspect-square dark:bg-black",
           {
             "border-neutral-70 border-2": active,
             "border-neutral-200 dark:border-neutral-800": !active,
@@ -32,14 +32,14 @@ export function GridTileImage({
         {props.src ? (
           <Image
             suppressHydrationWarning
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
             {...props}
           />
         ) : null}
-        <div className="absolute right-3 bottom-3 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-md transition-all duration-200 hover:scale-110 dark:bg-neutral-900">
+        <div className="absolute right-2 bottom-2 flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-md transition-all duration-200 hover:scale-110 sm:right-3 sm:bottom-3 sm:h-9 sm:w-9 dark:bg-neutral-900">
           <ShoppingBag
             suppressHydrationWarning
-            className="h-4 w-4 text-neutral-700 dark:text-neutral-300"
+            className="h-3.5 w-3.5 text-neutral-700 sm:h-4 sm:w-4 dark:text-neutral-300"
           />
         </div>
       </div>
