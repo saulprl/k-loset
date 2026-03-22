@@ -7,6 +7,7 @@ export function GridTileImage({
   isInteractive = true,
   active,
   label,
+  imageFit = "cover",
   ...props
 }: {
   isInteractive?: boolean;
@@ -17,12 +18,13 @@ export function GridTileImage({
     currencyCode: string;
     position?: "bottom" | "center";
   };
+  imageFit?: "cover" | "contain";
 } & React.ComponentProps<typeof Image>) {
   return (
     <div className="flex h-full w-full flex-col gap-3">
       <div
         className={clsx(
-          "group hover:border-neutral-70 relative aspect-[3/4] w-full overflow-hidden rounded-lg border bg-white sm:aspect-square dark:bg-black",
+          "group hover:border-neutral-70 relative aspect-[3/4] w-full overflow-hidden rounded-lg border bg-white dark:bg-black",
           {
             "border-neutral-70 border-2": active,
             "border-neutral-200 dark:border-neutral-800": !active,
@@ -32,7 +34,10 @@ export function GridTileImage({
         {props.src ? (
           <Image
             suppressHydrationWarning
-            className="h-full w-full object-cover object-center"
+            className={clsx("h-full w-full object-center", {
+              "object-cover": imageFit === "cover",
+              "object-contain": imageFit === "contain",
+            })}
             {...props}
           />
         ) : null}

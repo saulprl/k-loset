@@ -70,6 +70,9 @@ export function AddToCart({ product }: { product: Product }) {
   const finalVariant = variants.find(
     (variant) => variant.id === selectedVariantId,
   )!;
+  const isAvailableForSale = finalVariant
+    ? finalVariant.availableForSale
+    : availableForSale;
 
   return (
     <form
@@ -82,7 +85,7 @@ export function AddToCart({ product }: { product: Product }) {
       }}
     >
       <SubmitButton
-        availableForSale={availableForSale}
+        availableForSale={isAvailableForSale}
         selectedVariantId={selectedVariantId}
       />
       <p aria-live="polite" className="sr-only" role="status">

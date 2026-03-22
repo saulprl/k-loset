@@ -518,10 +518,6 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-  "use cache";
-  cacheTag(TAGS.products);
-  cacheLife("days");
-
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     variables: {
@@ -606,6 +602,7 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
     "products/create",
     "products/delete",
     "products/update",
+    "inventory_levels/update",
   ];
   const topic = (await headers()).get("x-shopify-topic") || "unknown";
   const secret = req.nextUrl.searchParams.get("secret");
