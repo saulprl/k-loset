@@ -39,11 +39,55 @@ const colorMap: Record<string, string> = {
   sage: "#9DC183",
   "dusty rose": "#DCAE96",
   charcoal: "#36454F",
+  silver: "#C0C0C0",
+  bronze: "#CD7F32",
+  "navy blue": "#1E3A5A",
+  "light gray": "#D1D5DB",
+  "dark gray": "#6B7280",
+  "dark grey": "#6B7280",
+  "charcoal grey": "#4B5563",
+  "charcoal gray": "#4B5563",
+  "dark brown": "#5C4033",
+  "olive brown": "#6B5A3A",
 };
 
+function normalizeColorKey(value: string): string {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[\-_]+/g, " ")
+    .replace(/\s+/g, " ");
+}
+
 function getColorValue(colorName: string): string | null {
-  const normalized = colorName.toLowerCase().trim();
-  return colorMap[normalized] || null;
+  const normalized = normalizeColorKey(colorName);
+
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(normalized)) {
+    return normalized;
+  }
+
+  if (/^(rgb|rgba|hsl|hsla)\(/i.test(normalized)) {
+    return colorName;
+  }
+
+  if (colorMap[normalized]) {
+    return colorMap[normalized];
+  }
+
+  // Handle compound values like "olive brown" by matching known parts.
+  const tokens = normalized.split(" ").filter(Boolean);
+  for (const token of tokens) {
+    if (colorMap[token]) {
+      return colorMap[token];
+    }
+  }
+
+  // Use native CSS color names coming from Shopify when available.
+  if (typeof CSS !== "undefined" && CSS.supports("color", normalized)) {
+    return normalized;
+  }
+
+  return null;
 }
 
 function isLikelySizeValue(value: string): boolean {
@@ -143,8 +187,8 @@ export function VariantSelector({
               const isActive = state[optionNameLowerCase] === value;
               const colorValue = isColorOption ? getColorValue(value) : null;
 
-              if (isColorOption && colorValue) {
-                // Render color swatch
+              if (isColorOption) {
+                // Render square color swatch.
                 return (
                   <button
                     formAction={() => {
@@ -156,20 +200,19 @@ export function VariantSelector({
                     disabled={!isAvailableForSale}
                     title={`${option.name}: ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
                     className={clsx(
-                      "relative h-8 w-8 rounded-full transition-all duration-200",
+                      "relative h-12 w-12 overflow-hidden rounded-sm border-2 transition-all duration-200",
                       {
-                        "ring-2 ring-neutral-900 ring-offset-2 dark:ring-white":
-                          isActive,
-                        "hover:ring-2 hover:ring-neutral-400 hover:ring-offset-2":
+                        "border-neutral-900": isActive,
+                        "border-neutral-300 hover:border-neutral-500":
                           !isActive && isAvailableForSale,
                         "cursor-not-allowed opacity-40": !isAvailableForSale,
                       },
                     )}
-                    style={{ backgroundColor: colorValue }}
+                    style={{ backgroundColor: colorValue || "#D1D5DB" }}
                   >
                     {!isAvailableForSale && (
                       <span className="absolute inset-0 flex items-center justify-center">
-                        <span className="h-px w-full rotate-45 bg-neutral-500" />
+                        <span className="h-px w-[140%] rotate-45 bg-neutral-500" />
                       </span>
                     )}
                   </button>
