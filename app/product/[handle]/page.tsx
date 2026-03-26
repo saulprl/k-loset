@@ -97,6 +97,17 @@ export default async function ProductPage(props: {
                   width: image.width,
                   height: image.height,
                 }))}
+                variants={product.variants.map((variant) => ({
+                  image: variant.image
+                    ? {
+                        src: variant.image.url,
+                        altText: variant.image.altText,
+                        width: variant.image.width,
+                        height: variant.image.height,
+                      }
+                    : null,
+                  selectedOptions: variant.selectedOptions,
+                }))}
               />
             </Suspense>
           </div>
