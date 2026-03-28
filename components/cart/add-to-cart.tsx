@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { addItem } from "components/cart/actions";
 import { useProduct } from "components/product/product-context";
 import { Product, ProductVariant } from "lib/shopify/types";
+import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { useCart } from "./cart-context";
 
@@ -57,6 +58,7 @@ export function AddToCart({ product }: { product: Product }) {
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
   const { state } = useProduct();
+  const router = useRouter();
   const [message, formAction] = useActionState(addItem, null);
 
   const variant = variants.find((variant: ProductVariant) =>
@@ -82,6 +84,7 @@ export function AddToCart({ product }: { product: Product }) {
         }
 
         await addItemAction();
+        router.refresh();
       }}
     >
       <SubmitButton
