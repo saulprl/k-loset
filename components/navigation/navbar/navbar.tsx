@@ -18,7 +18,6 @@ import {
     Sidebar,
     SidebarContent,
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -80,7 +79,7 @@ export const Navbar = ({ menu }: Props) => {
         </Link>
 
         <NavigationMenu>
-          <NavigationMenuList className="flex w-full items-center justify-center gap-2 max-lg:hidden lg:gap-8">
+          <NavigationMenuList className="flex w-full items-center justify-center gap-2 max-lg:hidden lg:gap-4">
             {menu.map((item, index) => {
               const isItemActive =
                 activePath === item.path ||
@@ -101,7 +100,7 @@ export const Navbar = ({ menu }: Props) => {
                       <NavigationMenuTrigger
                         onMouseEnter={() => setMenuIndex(index)}
                         className={clsx(
-                          "h-auto rounded-none bg-transparent px-0 py-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent lg:text-xl",
+                          "h-auto rounded-none bg-transparent px-0 py-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 data-[state=open]:bg-transparent data-[state=open]:hover:bg-transparent lg:text-sm",
                           {
                             "font-bold text-stone-900 data-[state=open]:text-stone-900":
                               isItemActive,
@@ -125,7 +124,7 @@ export const Navbar = ({ menu }: Props) => {
                       <Link
                         href={item.path}
                         className={clsx(
-                          "rounded-none p-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 lg:text-xl",
+                          "rounded-none p-0 text-2xl transition-[color,transform] duration-200 hover:scale-105 hover:bg-transparent focus:bg-transparent focus-visible:ring-0 lg:text-sm",
                           {
                             "font-bold text-stone-900": isItemActive,
                             "font-medium text-neutral-700 hover:text-stone-800":
@@ -186,23 +185,27 @@ export const Navbar = ({ menu }: Props) => {
                           key={`sidebar-item-${item.title}`}
                         >
                           <SidebarGroup className="px-0 py-1.5">
-                            <SidebarGroupLabel
-                              className={clsx(
-                                "h-auto px-0 text-xl tracking-tight",
-                                {
-                                  "text-neutral-900": isItemActive,
-                                  "text-neutral-800": !isItemActive,
-                                },
-                              )}
-                              asChild
-                            >
-                              <CollapsibleTrigger className="flex w-full items-center rounded-md px-3 py-2.5 font-semibold text-neutral-800 transition-colors [-webkit-tap-highlight-color:transparent] hover:bg-neutral-50 focus-visible:outline-none active:bg-neutral-100 data-[state=open]:bg-neutral-100 data-[state=open]:text-neutral-900">
-                                {item.title}
-                                <ChevronDown
-                                  className={`ml-auto size-4 text-neutral-500 transition-transform group-data-[state=open]/${item.title.toLowerCase()}:rotate-180`}
-                                />
-                              </CollapsibleTrigger>
-                            </SidebarGroupLabel>
+                            <SidebarMenuItem className="px-0">
+                              <SidebarMenuButton
+                                className={clsx(
+                                  "h-auto rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight [-webkit-tap-highlight-color:transparent] focus-visible:outline-none",
+                                  {
+                                    "bg-neutral-100 text-neutral-900":
+                                      isItemActive,
+                                    "text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900":
+                                      !isItemActive,
+                                  },
+                                )}
+                                asChild
+                              >
+                                <CollapsibleTrigger className="flex w-full items-center">
+                                  {item.title}
+                                  <ChevronDown
+                                    className={`ml-auto size-4 text-neutral-500 transition-transform group-data-[state=open]/${item.title.toLowerCase()}:rotate-180`}
+                                  />
+                                </CollapsibleTrigger>
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
                             <CollapsibleContent className="mt-1 border-l border-neutral-200 pl-2">
                               {item.children.map((subItem) => (
                                 <SidebarMenuItem key={subItem.title}>
