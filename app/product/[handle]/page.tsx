@@ -84,7 +84,7 @@ export default async function ProductPage(props: {
       <div className="mx-auto max-w-(--breakpoint-2xl) px-4 py-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:gap-12">
           {/* Gallery Section */}
-          <div className="w-full lg:w-3/5">
+          <div className="w-full lg:w-1/2">
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full w-full overflow-hidden rounded-lg bg-neutral-100" />
@@ -113,7 +113,7 @@ export default async function ProductPage(props: {
           </div>
 
           {/* Product Info Section */}
-          <div className="w-full lg:sticky lg:top-8 lg:w-2/5 lg:self-start">
+          <div className="w-full lg:sticky lg:top-8 lg:w-1/2 lg:self-start">
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>

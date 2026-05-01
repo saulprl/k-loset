@@ -157,12 +157,12 @@ export function Gallery({
 
       {/* Main Image */}
       <div
-        className="relative w-full overflow-hidden rounded-lg bg-neutral-100 md:flex-1"
+        className="relative max-h-[550px] w-full overflow-hidden rounded-lg bg-white md:flex-1"
         style={{ aspectRatio: selectedImageAspectRatio }}
       >
         {selectedImage && (
           <Image
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
             alt={selectedImage.altText as string}

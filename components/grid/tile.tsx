@@ -24,7 +24,7 @@ export function GridTileImage({
     <div className="flex h-full w-full flex-col gap-3">
       <div
         className={clsx(
-          "group hover:border-neutral-70 relative aspect-[3/4] w-full overflow-hidden rounded-lg border bg-white dark:bg-black",
+          "group hover:border-neutral-70 relative aspect-square w-full overflow-hidden rounded-lg border bg-white dark:bg-black",
           {
             "border-neutral-70 border-2": active,
             "border-neutral-200 dark:border-neutral-800": !active,
@@ -34,7 +34,7 @@ export function GridTileImage({
         {props.src ? (
           <Image
             suppressHydrationWarning
-            className={clsx("h-full w-full object-center", {
+            className={clsx("h-full w-full object-top", {
               "object-cover": imageFit === "cover",
               "object-contain": imageFit === "contain",
             })}
