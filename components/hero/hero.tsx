@@ -8,8 +8,6 @@ interface Props {
 }
 
 export const Hero = ({ collection }: Props) => {
-  console.log("Hero collection:", collection);
-
   return (
     <section className="flex w-full flex-col lg:flex-row-reverse lg:items-center">
       <div className="w-full py-7 lg:flex-1/3 lg:px-18">
@@ -25,7 +23,7 @@ export const Hero = ({ collection }: Props) => {
         >
           <div className="relative h-112 w-full overflow-hidden lg:aspect-video lg:h-auto">
             <Image
-              src={collection.image?.url || ""}
+              src={collection.image?.url || "/img/timeless-style.jpg"}
               alt={collection.image?.altText || collection.title}
               fill
               sizes="(min-width: 1024px) 70vw, (min-width: 640px) 95vw, 150vw"

@@ -56,15 +56,13 @@ interface Props {
 }
 
 export const CollectionCard = ({ collection }: Props) => {
-  console.log("CollectionCard collection:", collection);
-
   return (
     <Link
       href={collection.path}
       className="group relative block h-114 w-full overflow-hidden rounded-3xl transition-all duration-300 ease-in-out hover:brightness-105 lg:h-full"
     >
       <Image
-        src={collection.image?.url ?? "/img/back-2-school.jpg"}
+        src={collection.image?.url ?? "/img/timeless-style.jpg"}
         alt={collection.image?.altText || collection.title}
         fill
         sizes="(min-width: 1024px) 40vw, 90vw"

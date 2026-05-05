@@ -21,7 +21,20 @@ export default async function HomePage() {
   const latestCollections = await getLatestCollections();
   const latestProducts = await getLatestProducts();
 
-  const heroCollection = featuredCollections[0];
+  const preferredMainHandle = "timeless-style";
+  const heroCollection =
+    featuredCollections.find(
+      (collection) => collection.handle === preferredMainHandle,
+    ) || featuredCollections[0];
+
+  const orderedLatestCollections = [
+    ...latestCollections.filter(
+      (collection) => collection.handle === preferredMainHandle,
+    ),
+    ...latestCollections.filter(
+      (collection) => collection.handle !== preferredMainHandle,
+    ),
+  ];
 
   return (
     <>
@@ -34,7 +47,7 @@ export default async function HomePage() {
           </p>
         </section>
       )}
-      <NewCollectionArrivals collections={latestCollections} />
+      <NewCollectionArrivals collections={orderedLatestCollections} />
       <NewProductArrivals products={latestProducts} />
       <section className="w-full p-0">
         <PromotionalBanner
