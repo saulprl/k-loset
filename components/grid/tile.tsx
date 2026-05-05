@@ -8,6 +8,7 @@ export function GridTileImage({
   active,
   label,
   imageFit = "cover",
+  frame = "fixed",
   ...props
 }: {
   isInteractive?: boolean;
@@ -19,25 +20,45 @@ export function GridTileImage({
     position?: "bottom" | "center";
   };
   imageFit?: "cover" | "contain";
+  frame?: "fixed" | "natural";
 } & React.ComponentProps<typeof Image>) {
+  const isNaturalFrame = frame === "natural";
+
   return (
-    <div className="flex h-full w-full flex-col gap-3">
+    <div
+      className={clsx("flex flex-col gap-3", {
+        "h-full w-full": !isNaturalFrame,
+        "w-fit max-w-full": isNaturalFrame,
+      })}
+    >
       <div
         className={clsx(
-          "group hover:border-neutral-70 relative aspect-square w-full overflow-hidden rounded-lg border bg-white dark:bg-black",
+          "group hover:border-neutral-70 relative overflow-hidden rounded-lg border bg-white",
+          {
+            "aspect-square": !isNaturalFrame,
+            "w-fit": isNaturalFrame,
+          },
           {
             "border-neutral-70 border-2": active,
-            "border-neutral-200 dark:border-neutral-800": !active,
+            "border-neutral-200": !active,
           },
         )}
       >
         {props.src ? (
           <Image
             suppressHydrationWarning
-            className={clsx("h-full w-full object-top", {
-              "object-cover": imageFit === "cover",
-              "object-contain": imageFit === "contain",
-            })}
+            className={clsx(
+              isNaturalFrame
+                ? "mx-auto block h-auto max-h-[18rem] w-auto max-w-full"
+                : "h-full w-full",
+              {
+                "object-cover object-top": imageFit === "cover",
+                "object-contain object-center p-2":
+                  imageFit === "contain" && !isNaturalFrame,
+                "object-contain object-center":
+                  imageFit === "contain" && isNaturalFrame,
+              },
+            )}
             {...props}
           />
         ) : null}

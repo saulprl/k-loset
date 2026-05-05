@@ -117,10 +117,10 @@ export function Gallery({
       : "1 / 1";
 
   return (
-    <form className="flex flex-col-reverse gap-4 md:flex-row">
+    <form className="flex flex-col-reverse gap-4 md:flex-row md:items-start">
       {/* Thumbnails - Vertical on left side */}
       {visibleImages.length > 1 ? (
-        <ul className="flex gap-2 md:flex-col md:gap-3">
+        <ul className="flex gap-2 overflow-x-auto pb-1 md:h-[550px] md:flex-col md:gap-3 md:overflow-x-hidden md:overflow-y-auto md:pr-1 md:pb-0">
           {visibleImages.map((image, index) => {
             const isActive = index === clampedImageIndex;
 
