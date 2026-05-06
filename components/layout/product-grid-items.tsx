@@ -26,8 +26,9 @@ export default function ProductGridItems({
               }}
               src={product.featuredImage?.url}
               imageFit="contain"
-              frame="fixed"
-              fill
+              frame="natural"
+              width={product.featuredImage?.width ?? 600}
+              height={product.featuredImage?.height ?? 750}
               sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
             />
           </Link>

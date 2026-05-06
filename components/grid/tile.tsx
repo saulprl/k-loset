@@ -33,13 +33,13 @@ export function GridTileImage({
     >
       <div
         className={clsx(
-          "group hover:border-neutral-70 relative overflow-hidden rounded-lg border bg-white",
+          "group relative overflow-hidden border border-neutral-200 bg-white transition-colors duration-200 hover:border-neutral-300",
           {
             "aspect-square": !isNaturalFrame,
             "w-fit": isNaturalFrame,
           },
           {
-            "border-neutral-70 border-2": active,
+            "border-neutral-700": active,
             "border-neutral-200": !active,
           },
         )}
@@ -53,7 +53,7 @@ export function GridTileImage({
                 : "h-full w-full",
               {
                 "object-cover object-top": imageFit === "cover",
-                "object-contain object-center p-2":
+                "object-contain object-center":
                   imageFit === "contain" && !isNaturalFrame,
                 "object-contain object-center":
                   imageFit === "contain" && isNaturalFrame,

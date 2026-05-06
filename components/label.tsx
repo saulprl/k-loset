@@ -13,7 +13,10 @@ const Label = ({
 }) => {
   return (
     <div className="flex w-full flex-col gap-0.5 sm:gap-1">
-      <h3 className="line-clamp-2 text-[10px] leading-[1.2] font-semibold text-black sm:text-xs dark:text-white">
+      <h3
+        title={title}
+        className="line-clamp-2 min-h-[2.4em] break-words text-[10px] leading-[1.2] font-semibold text-black sm:min-h-[2.2em] sm:text-xs dark:text-white"
+      >
         {title}
       </h3>
       <Price
