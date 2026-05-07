@@ -55,8 +55,6 @@ export function GridTileImage({
                 "object-cover object-top": imageFit === "cover",
                 "object-contain object-center":
                   imageFit === "contain" && !isNaturalFrame,
-                "object-contain object-center":
-                  imageFit === "contain" && isNaturalFrame,
               },
             )}
             {...props}
