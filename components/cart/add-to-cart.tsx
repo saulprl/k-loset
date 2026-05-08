@@ -6,7 +6,7 @@ import { addItem } from "components/cart/actions";
 import { useProduct } from "components/product/product-context";
 import { Product, ProductVariant } from "lib/shopify/types";
 import { useRouter } from "next/navigation";
-import { useActionState, useState } from "react";
+import { useState } from "react";
 import { useCart } from "./cart-context";
 
 function SubmitButton({
@@ -59,7 +59,7 @@ export function AddToCart({ product }: { product: Product }) {
   const { addCartItem } = useCart();
   const { state } = useProduct();
   const router = useRouter();
-  const [message, formAction] = useActionState(addItem, null);
+  const [message, setMessage] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
 
   const variant = variants.find((variant: ProductVariant) =>
@@ -69,7 +69,6 @@ export function AddToCart({ product }: { product: Product }) {
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
-  const addItemAction = formAction.bind(null, selectedVariantId, quantity);
   const finalVariant = variants.find(
     (variant) => variant.id === selectedVariantId,
   )!;
@@ -112,7 +111,8 @@ export function AddToCart({ product }: { product: Product }) {
             addCartItem(finalVariant, product, quantity);
           }
 
-          await addItemAction();
+          const result = await addItem(null, selectedVariantId, quantity);
+          setMessage(result ?? null);
           router.refresh();
         }}
       >
