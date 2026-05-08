@@ -69,9 +69,13 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, "variants" | "images"> & {
+export type Product = Omit<
+  ShopifyProduct,
+  "variants" | "images" | "collections"
+> & {
   variants: ProductVariant[];
   images: Image[];
+  collections: ProductCollectionRef[];
 };
 
 export type ProductOption = {
@@ -140,6 +144,12 @@ export type ShopifyCollection = {
   subtitle?: { value: string } | null;
 };
 
+export type ProductCollectionRef = {
+  id: string;
+  handle: string;
+  title: string;
+};
+
 export type ShopifyProduct = {
   id: string;
   handle: string;
@@ -155,6 +165,7 @@ export type ShopifyProduct = {
   variants: Connection<ProductVariant>;
   featuredImage: Image;
   images: Connection<Image>;
+  collections: Connection<ProductCollectionRef>;
   seo: SEO;
   tags: string[];
   updatedAt: string;

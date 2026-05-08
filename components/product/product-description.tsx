@@ -34,6 +34,21 @@ function InfoPanel({
 export function ProductDescription({ product }: { product: Product }) {
   return (
     <div className="flex flex-col">
+      {/* Category Breadcrumb */}
+      {product.collections.length > 0 && (
+        <nav className="mb-3 flex flex-wrap gap-2" aria-label="Category">
+          {product.collections.map((collection) => (
+            <a
+              key={collection.handle}
+              href={`/search/${collection.handle}`}
+              className="inline-block rounded-full border border-neutral-200 px-3 py-1 text-xs font-medium tracking-wide text-neutral-500 uppercase transition-colors hover:border-neutral-400 hover:text-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:hover:border-neutral-500 dark:hover:text-white"
+            >
+              {collection.title}
+            </a>
+          ))}
+        </nav>
+      )}
+
       {/* Product Title */}
       <h1 className="text-2xl font-medium text-neutral-900 dark:text-white">
         {product.title}
