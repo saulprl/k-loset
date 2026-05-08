@@ -36,7 +36,10 @@ export default function FilterList({
     <>
       <nav>
         {title ? (
-          <details className="group hidden border-t border-neutral-300 pt-2 md:block dark:border-neutral-700">
+          <details
+            open
+            className="group hidden border-t border-neutral-300 pt-2 md:block dark:border-neutral-700"
+          >
             <summary className="flex cursor-pointer list-none items-center justify-between text-[15px] font-semibold tracking-tight text-neutral-900 marker:content-none dark:text-neutral-100">
               {title}
               <ChevronDownIcon className="h-4 w-4 text-neutral-500 transition-transform group-open:rotate-180 dark:text-neutral-300" />

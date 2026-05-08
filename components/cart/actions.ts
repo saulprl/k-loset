@@ -15,6 +15,7 @@ import { redirect } from "next/navigation";
 export async function addItem(
   prevState: any,
   selectedVariantId: string | undefined,
+  quantity: number = 1,
 ) {
   if (!selectedVariantId) {
     return "Error adding item to cart";
@@ -23,7 +24,7 @@ export async function addItem(
   try {
     const cookieStore = await cookies();
     let cartId = cookieStore.get("cartId")?.value;
-    const lineItem = { merchandiseId: selectedVariantId, quantity: 1 };
+    const lineItem = { merchandiseId: selectedVariantId, quantity };
 
     if (!cartId) {
       // Fast path: create cart with the product in a single request.
