@@ -50,7 +50,7 @@ export function ProductDescription({ product }: { product: Product }) {
       )}
 
       {/* Product Title */}
-      <h1 className="text-2xl font-medium text-neutral-900 dark:text-white">
+      <h1 className="text-xl font-medium text-neutral-900 dark:text-white">
         {product.title}
       </h1>
 
