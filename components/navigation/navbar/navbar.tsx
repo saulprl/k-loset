@@ -3,11 +3,6 @@
 import CartModal from "@/components/cart/modal";
 import { Logo } from "@/components/logo/logo";
 import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuLink,
@@ -15,21 +10,17 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
-    Sidebar,
-    SidebarContent,
-    SidebarGroup,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    SidebarTrigger,
-} from "@/components/ui/sidebar";
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+} from "@/components/ui/sheet";
 import { Menu } from "@/lib/shopify/types";
 import clsx from "clsx";
-import { ChevronDown } from "lucide-react";
+import { Heart, House, Search, Tag, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 
 interface Props {
   menu: Menu[];
@@ -37,6 +28,7 @@ interface Props {
 
 export const Navbar = ({ menu }: Props) => {
   const [menuIndex, setMenuIndex] = useState<number | null>(null);
+  const [isCategorySheetOpen, setIsCategorySheetOpen] = useState(false);
   const pathname = usePathname();
 
   const pathMatches = (path: string) => {
@@ -67,6 +59,52 @@ export const Navbar = ({ menu }: Props) => {
           </NavigationMenuItem>
         ))
       : null;
+
+  useEffect(() => {
+    setIsCategorySheetOpen(false);
+  }, [pathname]);
+
+  const firstPathByTitle = useMemo(() => {
+    return (terms: string[], fallback: string) => {
+      const normalizedTerms = terms.map((term) => term.toLowerCase());
+      const item = menu.find((menuItem) => {
+        const title = menuItem.title.toLowerCase();
+        return normalizedTerms.some((term) => title.includes(term));
+      });
+
+      return item?.path ?? fallback;
+    };
+  }, [menu]);
+
+  const brandsPath = firstPathByTitle(
+    ["brand", "brands", "marca", "marcas"],
+    "/search",
+  );
+  const wishlistPath = firstPathByTitle(
+    ["wishlist", "wish", "favorite", "favoritos"],
+    "/search/personalized-clothing",
+  );
+  const profilePath = firstPathByTitle(
+    ["account", "my", "profile", "about"],
+    "/about-us",
+  );
+
+  const isHomeActive = pathname === "/";
+  const isBrandsActive =
+    pathname === brandsPath || pathname.startsWith(`${brandsPath}/`);
+  const isWishlistActive =
+    pathname === wishlistPath || pathname.startsWith(`${wishlistPath}/`);
+  const isProfileActive =
+    pathname === profilePath || pathname.startsWith(`${profilePath}/`);
+
+  const mobileTabClasses = (isActive: boolean) =>
+    clsx(
+      "flex min-w-0 flex-1 flex-col items-center justify-center gap-1 px-1 py-2 text-[11px] font-medium leading-none transition-colors",
+      {
+        "text-neutral-900": isActive,
+        "text-neutral-400": !isActive,
+      },
+    );
 
   return (
     <header
@@ -158,108 +196,119 @@ export const Navbar = ({ menu }: Props) => {
                 <UserRound />
               </Button>
             </NavigationMenuItem> */}
-            <NavigationMenuItem asChild className="lg:hidden">
-              <SidebarTrigger />
-            </NavigationMenuItem>
-            <Sidebar
-              side="right"
-              className="forced-light-mobile-menu lg:hidden"
-              collapsible="offcanvas"
-            >
-              <SidebarHeader className="border-b border-neutral-200/80 px-5 pt-6 pb-3">
-                <Logo as="span" />
-              </SidebarHeader>
-              <SidebarContent data-darkreader-ignore className="px-4 py-3">
-                <SidebarMenu className="divide-y divide-neutral-200">
-                  {menu.map((item) => {
-                    const isItemActive =
-                      activePath === item.path ||
-                      item.children.some(
-                        (subItem) => activePath === subItem.path,
-                      );
-
-                    if (item.children.length > 0) {
-                      return (
-                        <Collapsible
-                          className={`group/${item.title.toLowerCase()}`}
-                          key={`sidebar-item-${item.title}`}
-                        >
-                          <SidebarGroup className="px-0 py-1.5">
-                            <SidebarMenuItem className="px-0">
-                              <SidebarMenuButton
-                                className={clsx(
-                                  "h-auto rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight [-webkit-tap-highlight-color:transparent] focus-visible:outline-none",
-                                  {
-                                    "bg-neutral-100 text-neutral-900":
-                                      isItemActive,
-                                    "text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900":
-                                      !isItemActive,
-                                  },
-                                )}
-                                asChild
-                              >
-                                <CollapsibleTrigger className="flex w-full items-center">
-                                  {item.title}
-                                  <ChevronDown
-                                    className={`ml-auto size-4 text-neutral-500 transition-transform group-data-[state=open]/${item.title.toLowerCase()}:rotate-180`}
-                                  />
-                                </CollapsibleTrigger>
-                              </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <CollapsibleContent className="mt-1 border-l border-neutral-200 pl-2">
-                              {item.children.map((subItem) => (
-                                <SidebarMenuItem key={subItem.title}>
-                                  <SidebarMenuButton
-                                    className={clsx(
-                                      "!active:bg-neutral-100 !active:text-neutral-900 h-auto rounded-md px-3 py-2 text-base tracking-tight [-webkit-tap-highlight-color:transparent] focus-visible:outline-none",
-                                      {
-                                        "font-semibold text-neutral-900":
-                                          activePath === subItem.path,
-                                        "font-normal text-neutral-700 hover:bg-neutral-50 hover:text-neutral-900":
-                                          activePath !== subItem.path,
-                                      },
-                                    )}
-                                    asChild
-                                  >
-                                    <Link href={subItem.path}>
-                                      {subItem.title}
-                                    </Link>
-                                  </SidebarMenuButton>
-                                </SidebarMenuItem>
-                              ))}
-                            </CollapsibleContent>
-                          </SidebarGroup>
-                        </Collapsible>
-                      );
-                    }
-
-                    return (
-                      <SidebarMenuItem
-                        key={`sidebar-item-${item.title}`}
-                        className="px-0 py-1.5"
-                      >
-                        <SidebarMenuButton
-                          className={clsx(
-                            "!active:bg-neutral-100 !active:text-neutral-900 h-auto rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight [-webkit-tap-highlight-color:transparent] focus-visible:outline-none",
-                            {
-                              "bg-neutral-100 text-neutral-900": isItemActive,
-                              "text-neutral-800 hover:bg-neutral-50 hover:text-neutral-900":
-                                !isItemActive,
-                            },
-                          )}
-                          asChild
-                        >
-                          <Link href={item.path}>{item.title}</Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    );
-                  })}
-                </SidebarMenu>
-              </SidebarContent>
-            </Sidebar>
           </NavigationMenuList>
         </NavigationMenu>
       </div>
+
+      <nav className="fixed right-0 bottom-0 left-0 z-50 border-t border-neutral-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90 lg:hidden">
+        <ul className="mx-auto grid h-16 w-full max-w-[96rem] grid-cols-5">
+          <li>
+            <Link href="/" className={mobileTabClasses(isHomeActive)}>
+              <House className="size-5" />
+              <span>Home</span>
+            </Link>
+          </li>
+          <li>
+            <button
+              type="button"
+              onClick={() => setIsCategorySheetOpen(true)}
+              className={mobileTabClasses(isCategorySheetOpen)}
+              aria-label="Open categories"
+            >
+              <Search className="size-5" />
+              <span>Category</span>
+            </button>
+          </li>
+          <li>
+            <Link
+              href={brandsPath}
+              className={mobileTabClasses(isBrandsActive)}
+            >
+              <Tag className="size-5" />
+              <span>Brands</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={wishlistPath}
+              className={mobileTabClasses(isWishlistActive)}
+            >
+              <Heart className="size-5" />
+              <span>Wishlist</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={profilePath}
+              className={mobileTabClasses(isProfileActive)}
+            >
+              <User className="size-5" />
+              <span>My</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Sheet open={isCategorySheetOpen} onOpenChange={setIsCategorySheetOpen}>
+        <SheetContent
+          side="right"
+          className="forced-light-mobile-menu w-[88vw] p-0 sm:max-w-sm lg:hidden"
+        >
+          <SheetHeader className="border-b border-neutral-200/80 px-5 pt-6 pb-3 text-left">
+            <SheetTitle>
+              <Logo as="span" />
+            </SheetTitle>
+          </SheetHeader>
+          <div className="px-4 py-3">
+            <ul className="divide-y divide-neutral-200">
+              {menu.map((item) => {
+                const isItemActive =
+                  activePath === item.path ||
+                  item.children.some((subItem) => activePath === subItem.path);
+
+                return (
+                  <li
+                    key={`mobile-sheet-item-${item.title}`}
+                    className="py-1.5"
+                  >
+                    <Link
+                      href={item.path}
+                      className={clsx(
+                        "block rounded-md px-3 py-2.5 text-xl font-semibold tracking-tight text-neutral-800 transition-colors hover:bg-neutral-50 hover:text-neutral-900",
+                        {
+                          "bg-neutral-100 text-neutral-900": isItemActive,
+                        },
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                    {item.children.length > 0 ? (
+                      <ul className="mt-1 ml-3 border-l border-neutral-200 pl-2">
+                        {item.children.map((subItem) => (
+                          <li key={`mobile-sheet-subitem-${subItem.title}`}>
+                            <Link
+                              href={subItem.path}
+                              className={clsx(
+                                "block rounded-md px-3 py-2 text-base tracking-tight text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900",
+                                {
+                                  "font-semibold text-neutral-900":
+                                    activePath === subItem.path,
+                                },
+                              )}
+                            >
+                              {subItem.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </SheetContent>
+      </Sheet>
 
       {dropdownContent && (
         <NavigationMenu className="max-w-auto absolute top-full right-0 left-0 z-50 w-full bg-white py-8">

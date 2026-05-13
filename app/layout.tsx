@@ -74,7 +74,7 @@ export default async function RootLayout({
           <SidebarProvider defaultOpen={false}>
             <TopMarqueeBanner />
             <Navbar menu={menu} />
-            <main className="mx-auto min-h-svh w-full max-w-[96rem] bg-white px-4 sm:px-8 lg:px-12">
+            <main className="mx-auto min-h-svh w-full max-w-[96rem] bg-white px-4 pb-24 sm:px-8 lg:px-12 lg:pb-0">
               {children}
               <Toaster closeButton />
             </main>
