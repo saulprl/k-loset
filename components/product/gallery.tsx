@@ -105,34 +105,23 @@ export function Gallery({
           ? selectedVariantImage
           : images;
 
-  // Always prepend the first product image as the first thumbnail if not already included
-  const firstImage = images[0];
-  const filteredImages =
-    firstImage &&
-    visibleImages !== images &&
-    !visibleImages.some(
-      (img) => normalizeImageKey(img.src) === normalizeImageKey(firstImage.src),
-    )
-      ? [firstImage, ...visibleImages]
-      : visibleImages;
-
   const imageIndex = state.image ? parseInt(state.image) : 0;
   const clampedImageIndex = Math.max(
     0,
-    Math.min(imageIndex, filteredImages.length - 1),
+    Math.min(imageIndex, visibleImages.length - 1),
   );
-  const selectedImage = filteredImages[clampedImageIndex];
+  const selectedImage = visibleImages[clampedImageIndex];
   const selectedImageAspectRatio =
     selectedImage?.width && selectedImage?.height
       ? `${selectedImage.width} / ${selectedImage.height}`
       : "1 / 1";
 
   return (
-    <form className="flex flex-col-reverse gap-4 md:flex-row md:items-start">
+    <form className="flex flex-col-reverse gap-4 md:flex-row">
       {/* Thumbnails - Vertical on left side */}
-      {filteredImages.length > 1 ? (
-        <ul className="flex gap-2 overflow-x-auto pb-1 md:h-[550px] md:flex-col md:gap-3 md:overflow-x-hidden md:overflow-y-auto md:pr-1 md:pb-0">
-          {filteredImages.map((image, index) => {
+      {visibleImages.length > 1 ? (
+        <ul className="flex gap-2 md:flex-col md:gap-3">
+          {visibleImages.map((image, index) => {
             const isActive = index === clampedImageIndex;
 
             return (
@@ -168,12 +157,12 @@ export function Gallery({
 
       {/* Main Image */}
       <div
-        className="relative max-h-[550px] w-full overflow-hidden rounded-lg bg-white md:flex-1"
+        className="relative w-full overflow-hidden rounded-lg bg-neutral-100 md:flex-1"
         style={{ aspectRatio: selectedImageAspectRatio }}
       >
         {selectedImage && (
           <Image
-            className="h-full w-full object-contain"
+            className="h-full w-full object-cover"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
             alt={selectedImage.altText as string}

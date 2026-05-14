@@ -22,11 +22,6 @@ export default async function HomePage() {
   const latestProducts = await getLatestProducts();
 
   const preferredMainHandle = "timeless-style";
-  const heroCollection =
-    featuredCollections.find(
-      (collection) => collection.handle === preferredMainHandle,
-    ) || featuredCollections[0];
-
   const orderedLatestCollections = [
     ...latestCollections.filter(
       (collection) => collection.handle === preferredMainHandle,
@@ -36,10 +31,31 @@ export default async function HomePage() {
     ),
   ];
 
+  const orderedHeroCollections = [
+    ...featuredCollections.filter(
+      (collection) => collection.handle === preferredMainHandle,
+    ),
+    ...featuredCollections.filter(
+      (collection) => collection.handle !== preferredMainHandle,
+    ),
+  ];
+
+  const rotatedProducts = (offset: number) => {
+    if (!latestProducts.length) {
+      return latestProducts;
+    }
+
+    const safeOffset = offset % latestProducts.length;
+    return [
+      ...latestProducts.slice(safeOffset),
+      ...latestProducts.slice(0, safeOffset),
+    ];
+  };
+
   return (
     <>
-      {heroCollection ? (
-        <Hero collection={heroCollection} />
+      {orderedHeroCollections.length ? (
+        <Hero collections={orderedHeroCollections} />
       ) : (
         <section className="flex w-full items-center justify-center px-5 py-16 text-center">
           <p className="text-text-foreground font-serif text-2xl">
@@ -48,7 +64,10 @@ export default async function HomePage() {
         </section>
       )}
       <NewCollectionArrivals collections={orderedLatestCollections} />
-      <NewProductArrivals products={latestProducts} />
+      <NewProductArrivals
+        products={latestProducts}
+        secondaryProducts={rotatedProducts(8)}
+      />
       <section className="w-full p-0">
         <PromotionalBanner
           variant="morado"
