@@ -1,6 +1,7 @@
 import { PromotionalBanner } from "@/components/banner/promotional-banner/promotional-banner";
 import { NewCollectionArrivals } from "@/components/collections/new-collection-arrivals";
 import { Hero } from "@/components/hero/hero";
+import { ExtraSaleGrid } from "@/components/products/extra-sale-grid";
 import { NewProductArrivals } from "@/components/products/new-product-arrivals";
 import {
     getFeaturedCollections,
@@ -67,6 +68,10 @@ export default async function HomePage() {
       <NewProductArrivals
         products={latestProducts}
         secondaryProducts={rotatedProducts(8)}
+      />
+      <ExtraSaleGrid
+        products={rotatedProducts(4)}
+        collections={orderedLatestCollections}
       />
       <section className="w-full p-0">
         <PromotionalBanner
