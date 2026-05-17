@@ -25,9 +25,36 @@ export const NewProductArrivals = ({
   const productRows = secondaryProducts?.length
     ? [products, secondaryProducts]
     : [products];
+  const mobileCollections = [
+    { title: "SHOES", href: "/search/shoes" },
+    { title: "WOMEN", href: "/search/women" },
+    { title: "ALL", href: "/search" },
+  ];
 
   return (
     <section className="flex w-full flex-col">
+      <div className="mt-3 mb-4 bg-white px-4 pt-4 pb-2 lg:hidden">
+        <div className="mx-auto w-full max-w-xl">
+          <ul className="flex w-full items-center justify-center gap-6 sm:gap-10">
+            {mobileCollections.map((item, index) => (
+              <li key={`mobile-collection-tab-${item.title}`}>
+                <Link
+                  href={item.href}
+                  className="relative block pb-3 text-xl font-medium tracking-tight text-neutral-900 sm:text-2xl"
+                >
+                  {item.title}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute right-0 bottom-0 left-0 h-1.5 bg-black transition-opacity ${
+                      index === 0 ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
       <div className="flex w-full items-center justify-between px-4 py-12">
         <h2 className="text-text-foreground font-sans text-3xl font-medium">
           {title}{" "}
