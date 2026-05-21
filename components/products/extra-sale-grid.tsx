@@ -57,21 +57,21 @@ export const ExtraSaleGrid = ({
               const isActive = filter.value === activeFilter;
 
               return (
-              <li key={`extra-sale-filter-${filter.label}`}>
-                <button
-                  type="button"
-                  onClick={() => setActiveFilter(filter.value)}
-                  aria-pressed={isActive}
-                  className={[
-                    "rounded-full border px-5 py-2 text-base font-medium tracking-tight whitespace-nowrap transition-colors sm:px-6 sm:py-2.5 sm:text-xl",
-                    isActive
-                      ? "border-neutral-950 bg-neutral-950 text-white"
-                      : "border-neutral-300 bg-white text-neutral-800 hover:border-neutral-500",
-                  ].join(" ")}
-                >
-                  {filter.label}
-                </button>
-              </li>
+                <li key={`extra-sale-filter-${filter.label}`}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveFilter(filter.value)}
+                    aria-pressed={isActive}
+                    className={[
+                      "rounded-full border px-5 py-2 text-base font-medium tracking-tight whitespace-nowrap transition-colors sm:px-6 sm:py-2.5 sm:text-xl",
+                      isActive
+                        ? "border-neutral-950 bg-neutral-950 text-white"
+                        : "border-neutral-300 bg-white text-neutral-800 hover:border-neutral-500",
+                    ].join(" ")}
+                  >
+                    {filter.label}
+                  </button>
+                </li>
               );
             })}
           </ul>
@@ -107,7 +107,9 @@ export const ExtraSaleGrid = ({
                     className="text-discount mt-1 text-[clamp(1.6rem,5.8vw,2.5rem)] leading-none font-semibold"
                     currencyCodeClassName="hidden"
                     amount={product.priceRange.maxVariantPrice.amount}
-                    currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+                    currencyCode={
+                      product.priceRange.maxVariantPrice.currencyCode
+                    }
                   />
                 </div>
               </Link>
